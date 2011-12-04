@@ -1,0 +1,9 @@
+Data.Combinatorics.Factorial:
+    * Various implementations
+    * Benchmarking
+
+Data.Combinatorics.Binomial:
+    * Various implementations
+    * Benchmarking
+
+* Talk to people re integrating HaskellForMaths, gamma, statistics, and combinatorics

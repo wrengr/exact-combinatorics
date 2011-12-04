@@ -1,0 +1,42 @@
+combinatorics
+=============
+
+This is a simple package and should be easy to install. You should
+be able to use one of the following standard methods to install it.
+
+    -- With cabal-install and without the source:
+    $> cabal install combinatorics
+    
+    -- With cabal-install and with the source already:
+    $> cd combinatorics
+    $> cabal install
+    
+    -- Without cabal-install, but with the source already:
+    $> cd combinatorics
+    $> runhaskell Setup.hs configure --user
+    $> runhaskell Setup.hs build
+    $> runhaskell Setup.hs test
+    $> runhaskell Setup.hs haddock --hyperlink-source
+    $> runhaskell Setup.hs install
+
+The test step is optional and currently does nothing.
+
+
+Portability
+===========
+
+An attempt has been made to keep this library portable, but it does
+rely on some common language extensions (i.e., ones implemented by
+Hugs as well as GHC) as well as a couple which are only known to
+be supported by GHC. All required language extensions are:
+
+    CPP
+    MultiParamTypeClasses
+    FunctionalDependencies
+    FlexibleInstances
+    NoImplicitPrelude
+    MagicHash
+    KindSignatures
+    GeneralizedNewtypeDeriving -- only if compiled with GHC
+
+----------------------------------------------------------- fin.
