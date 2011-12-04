@@ -11,7 +11,7 @@
 --
 ----------------------------------------------------------------
 module Math.Combinatorics.Binomial where
-import Math.Combinatorics.Primes    (primesFromTo)
+import Math.Combinatorics.Primes    (primes)
 import Math.Combinatorics.Factorial (factorial_naive)
 import Data.List                    (foldl')
 
@@ -23,7 +23,8 @@ binomial_naive n k
     | otherwise =
         factorial_naive n `quot` (factorial_naive k * factorial_naive (n-k))
 
--- TODO: a memoizing implementation based on pascal's triangle. cf <http://www.polyomino.f2s.com/david/haskell/hs/CombinatoricsCounting.hs.txt>
+
+-- TODO: a memoizing implementation based on pascal's triangle? cf <http://www.polyomino.f2s.com/david/haskell/hs/CombinatoricsCounting.hs.txt>
 
 
 -- | A fast implementation, based on Peter Luschny 2010-02-01.
@@ -46,9 +47,10 @@ binomial n k_
         foldl'
             (\acc prime -> step acc (fromIntegral prime))
             1
-            (primesFromTo 2 $ fromIntegral n)
-        -- BUG: primesFromTo isn't a good producer, so we shouldn't
-        -- just (map fromIntegral)
+            (takeWhile (fromIntegral n >=) primes)
+        -- BUG: takeWhile isn't a good producer, so we shouldn't
+        -- just (map fromIntegral). But take is a good producer,
+        -- so why isn't takeWhile?
     where
     k     = fromIntegral $! if k_ > n `quot` 2 then n - k_ else k_
     nk    = n - k
@@ -82,7 +84,7 @@ binomial_parallel n k
         let k'     = if k > n / 2 then n - k else k
         let nk     = n - k'
         let rootN  = floor (sqrt n)
-        let primes = primesFromTo 2 n
+        let primes = takeWhile (n >=) primes
         --
         forM primes $ \prime -> do
             when (prime > nk) $ do

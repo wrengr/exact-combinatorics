@@ -16,10 +16,13 @@
 --
 -- The prime numbers (<http://oeis.org/A000040>).
 ----------------------------------------------------------------
-module Math.Combinatorics.Primes (primes, primesFromTo) where
+module Math.Combinatorics.Primes (primes) where
 
 
 data Wheel = Wheel {-# UNPACK #-}!Int [Int]
+
+
+-- BUG: the CAF is nice for sharing, but what about when we want fusion and to avoid sharing?
 
 -- | The prime numbers. Implemented with the algorithm in:
 --
@@ -42,6 +45,7 @@ primes = seive wheels primes primeSquares
                             , n' <- [n+o]
                             , n' `mod` p > 0 ]
     
+    -- N.B., ps and qs must be lazy. Or else the circular program is _|_.
     seive (Wheel s ns : ws) ps qs =
         [ n' | o  <- s : [2*s,3*s..(head ps-1)*s]
              , n  <- ns
@@ -49,19 +53,9 @@ primes = seive wheels primes primeSquares
              , s <= 2 || noFactorIn ps qs n' ]
         ++ seive ws (tail ps) (tail qs)
         where
-        noFactorIn :: [Int] -> [Int] -> Int -> Bool
+        -- noFactorIn :: [Int] -> [Int] -> Int -> Bool
         noFactorIn (p:ps) (q:qs) x =
             q > x || x `mod` p > 0 && noFactorIn ps qs x
-
-
--- TODO: is there a faster way to do this?
--- BUG: this doesn't appear to be a good producer for list fusion.
--- | Return the primes between a lower and upper bound (inclusive).
-primesFromTo :: Int -> Int -> [Int]
-primesFromTo low high
-    = takeWhile (high >=)
-    . dropWhile (low >)
-    $ primes
 
 ----------------------------------------------------------------
 ----------------------------------------------------------- fin.
