@@ -27,10 +27,10 @@ data Wheel = Wheel {-# UNPACK #-}!Int [Int]
 -- | The prime numbers. Implemented with the algorithm in:
 --
 -- * Colin Runciman (1997)
---   /Lazy Wheel Sieves and Spirals of Primes/, Functional Pearl,
---   Journal of Functional Programming, 7(2). pp.219--225.
---   ISSN 0956-7968
---   <http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.55.7096>
+--    /Lazy Wheel Sieves and Spirals of Primes/, Functional Pearl,
+--    Journal of Functional Programming, 7(2). pp.219--225.
+--    ISSN 0956-7968
+--    <http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.55.7096>
 --
 primes :: [Int]
 primes = seive wheels primes primeSquares

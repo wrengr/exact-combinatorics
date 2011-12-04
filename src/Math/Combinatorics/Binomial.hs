@@ -4,7 +4,7 @@
 -- |
 -- Module      :  Math.Combinatorics.Binomial
 -- Copyright   :  Copyright (c) 2011 wren ng thornton
--- License     :  from LGPL 2.1 or CC-BY-SA 3.0
+-- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
 -- Stability   :  experimental
 -- Portability :  Haskell98
@@ -24,20 +24,24 @@ binomial_naive n k
         factorial_naive n `quot` (factorial_naive k * factorial_naive (n-k))
 
 
--- TODO: a memoizing implementation based on pascal's triangle? cf <http://www.polyomino.f2s.com/david/haskell/hs/CombinatoricsCounting.hs.txt>
+-- TODO: a memoizing implementation based on pascal's triangle? cf
+-- <http://www.polyomino.f2s.com/david/haskell/hs/CombinatoricsCounting.hs.txt>
 
 
--- | A fast implementation, based on Peter Luschny 2010-02-01.
--- However, his version builds up an intermediate array of primes
--- and takes the product (in parallel) at the end. This version
--- gets rid of the intermediate array, but performs unbalanced
--- multiplications.
-
+-- | A fast implementation based on the prime factorization of
+-- binomial coefficients.
+--
+-- * P. Goetgheluck (1987)
+--    /Computing Binomial Coefficients/,
+--    American Math. Monthly, 94(4). pp.360--365.
+--    <http://www.jstor.org/stable/2323099>
+--
 binomial :: (Integral a) => a -> a -> a
     -- The result type could be any (Num b) if desired.
-{-# SPECIALIZE binomial :: Integer -> Integer -> Integer #-}
-{-# SPECIALIZE binomial :: Int -> Int -> Int #-}
-
+{-# SPECIALIZE binomial ::
+    Integer -> Integer -> Integer,
+    Int -> Int -> Int
+    #-}
 binomial n k_
     | k_ <  0   = error "binomial: k < 0" -- or just return 0?
     | k_ >  n   = error "binomial: k > n" -- or just return 0?
@@ -52,28 +56,31 @@ binomial n k_
         -- just (map fromIntegral). But take is a good producer,
         -- so why isn't takeWhile?
     where
+    -- TODO: is it faster to replace (`quot` 2) by (`shiftR` 1) ?
+    -- TODO: since we know the second operand to quot/rem is positive, we should use quotInt/remInt directly to avoid the extra tests (if they're not optimized away); for Integer the only extra test is against 0, but maybe we should call quotInteger/remInteger directly too.
     k     = fromIntegral $! if k_ > n `quot` 2 then n - k_ else k_
     nk    = n - k
-    rootN = floor (sqrt (fromIntegral n) :: Double) `asTypeOf` n
+    sqrtN = floor (sqrt (fromIntegral n) :: Double) `asTypeOf` n
 
     step acc prime
         | prime > nk         = acc * prime
         | prime > n `quot` 2 = acc
-        | prime > rootN      =
+        | prime > sqrtN      =
             if n `rem` prime < k `rem` prime
             then acc * prime
             else acc
         | otherwise = acc * go n k 0 1
         where
+        -- TODO: would it be faster to accumulate the power, and then use repeated squaring for the exponentiation? (N.B., that's how (GHC.Real.^) is implemented. Though theuy check for the exponent being ==0 or <0, and probably won't see that it can't be here.)
         go n' k' r p
             | n' > 0 =
-                if n' `rem` prime < k' `rem` prime + r
+                if n' `rem` prime < (k' `rem` prime) + r
                 then go (n' `quot` prime) (k' `quot` prime) 1 $! p * prime
                 else go (n' `quot` prime) (k' `quot` prime) 0 p
             | otherwise = p
 
 {-
--- | Fast binomial. From Peter Luschny 2010-02-01
+-- | Fast binomial. From Peter Luschny 2010-02-01, LGPL 2.1 or CC-BY-SA 3.0.
 binomial_parallel n k
     | k < 0  = error ""
     | k > n  = error ""
@@ -83,7 +90,7 @@ binomial_parallel n k
         let fi     = 0
         let k'     = if k > n / 2 then n - k else k
         let nk     = n - k'
-        let rootN  = floor (sqrt n)
+        let sqrtN  = floor (sqrt n)
         let primes = takeWhile (n >=) primes
         --
         forM primes $ \prime -> do
@@ -92,7 +99,7 @@ binomial_parallel n k
                 continue
             when (prime > n / 2) $ do
                 continue
-            when (prime > rootN) $ do
+            when (prime > sqrtN) $ do
                 when (n `mod` prime < k `mod` prime) $ do
                     primes[fi++] := prime
                 continue
