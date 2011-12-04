@@ -15,6 +15,30 @@ import Math.Combinatorics.Primes    (primes)
 import Math.Combinatorics.Factorial (factorial_naive)
 import Data.List                    (foldl')
 
+{-
+<http://mathworld.wolfram.com/BinomialCoefficient.html>
+
+Some identities, but not really material for RULES:
+    n `choose` 0     = 1
+    n `choose` n     = 1
+    n `choose` k     = n `choose` (n-k)
+    n `choose` k     = (-1)^k * ((k-n-1) `choose` k)
+    n `choose` (k+1) = (n `choose` k) * ((n-k) / (k+1))
+    (n+1) `choose` k = (n `choose` k) * (n `choose` (k-1))
+
+Regarding the prime factorization/carries thing, also cf:
+    Kummer (1852);
+    Graham et al. (1989), Exercise 5.36, p. 245;
+    Ribenboim (1989);
+    Vardi (1991), p. 68
+
+To extend to negative arguments and to complex numbers, see (Kronenburg 2011):
+    n `choose` k
+        | k >= 0    = (-1)^k     * ((-n+k-1) `choose` k)
+        | k <= n    = (-1)^(n-k) * ((-k-1) `choose` (n-k))
+        | otherwise = 0
+-}
+
 -- | The naive implementation: @n! / (k! * (n-k)!)@.
 binomial_naive :: (Integral a) => a -> a -> a
 binomial_naive n k
@@ -28,13 +52,15 @@ binomial_naive n k
 -- <http://www.polyomino.f2s.com/david/haskell/hs/CombinatoricsCounting.hs.txt>
 
 
--- | A fast implementation based on the prime factorization of
--- binomial coefficients.
+-- TODO: give a version that returns the prime-power factorization as [(Int,Int)]
+
+-- | A fast implementation based on the prime-power factorization.
 --
 -- * P. Goetgheluck (1987)
 --    /Computing Binomial Coefficients/,
---    American Math. Monthly, 94(4). pp.360--365.
+--    American Mathematical Monthly, 94(4). pp.360--365.
 --    <http://www.jstor.org/stable/2323099>
+--    <http://dl.acm.org/citation.cfm?id=26272>
 --
 binomial :: (Integral a) => a -> a -> a
     -- The result type could be any (Num b) if desired.

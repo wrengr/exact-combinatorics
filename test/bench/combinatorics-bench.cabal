@@ -1,0 +1,71 @@
+----------------------------------------------------------------
+-- wren ng thornton <wren@community.haskell.org>    ~ 2011.12.04
+----------------------------------------------------------------
+
+Name:           combinatorics-bench
+Version:        0.1.0
+Stability:      experimental
+Homepage:       http://code.haskell.org/~wren/
+Author:         wren ng thornton
+Maintainer:     wren@community.haskell.org
+Copyright:      Copyright (c) 2011 wren ng thornton
+License:        BSD3
+License-File:   LICENSE
+
+Category:       Statistics, Math
+Synopsis:       Common combinatoric functions.
+Description:    Common combinatoric functions.
+
+-- By and large Cabal >=1.2 is fine; but >= 1.6 gives tested-with:
+-- and source-repository:.
+Cabal-Version:  >= 1.6
+-- We need a custom build in order to define __HADDOCK__
+Build-Type:     Custom
+Tested-With:    GHC == 6.12.1
+
+Source-Repository head
+    Type:     darcs
+    Location: http://community.haskell.org/~wren/combinatorics
+
+----------------------------------------------------------------
+Flag base4
+    Default:     True
+    Description: base-4.0 emits "Prelude deprecated" messages in
+                 order to get people to be explicit about which
+                 version of base they use.
+Flag splitBase
+    Default:     True
+    Description: base-3.0 (GHC 6.8) broke out the packages: array,
+                 bytestring, containers, directory, old-locale,
+                 old-time, packedstring, pretty, process, random.
+
+Flag threaded
+    Default: False
+    Description: Compile with support for enabling the use of
+        multiple OS threads, in order to take advantage of parallelism
+        on a multiprocessor or multicore machine. Note that this
+        flag is not required in order to enable (single OS-threaded)
+        concurrency of Haskell lightweight threads. This pases
+        -threaded to GHC which enables various RTS flags for 
+        configuring the number of OS threads, etc.
+
+----------------------------------------------------------------
+Executable bench-binomial
+    GHC-Options: -fforce-recomp
+    if flag(threaded)
+        GHC-Options: -threaded
+    
+    Build-Depends: combinatorics >= 0.1.0
+                 , criterion     >= 0.5.0
+
+    if flag(base4)
+        Build-Depends: base >= 4 && < 5
+    else
+        Build-Depends: base < 4
+    
+    Hs-Source-Dirs: .
+    Main-Is:        BinomialBench.hs
+    GHC-Options:    -main-is BinomialBench.main
+
+----------------------------------------------------------------
+----------------------------------------------------------- fin.

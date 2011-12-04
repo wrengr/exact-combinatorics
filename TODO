@@ -1,9 +1,10 @@
 Data.Combinatorics.Factorial:
     * Various implementations
+    + Get direct access to the GMP version.
     * Benchmarking
 
 Data.Combinatorics.Binomial:
-    * Various implementations
     * Benchmarking
+    - Other implementations?
 
 * Talk to people re integrating HaskellForMaths, gamma, statistics, and combinatorics

@@ -27,16 +27,8 @@ Portability
 
 An attempt has been made to keep this library portable, but it does
 rely on some common language extensions (i.e., ones implemented by
-Hugs as well as GHC) as well as a couple which are only known to
-be supported by GHC. All required language extensions are:
+Hugs as well as GHC). All required language extensions are:
 
     CPP
-    MultiParamTypeClasses
-    FunctionalDependencies
-    FlexibleInstances
-    NoImplicitPrelude
-    MagicHash
-    KindSignatures
-    GeneralizedNewtypeDeriving -- only if compiled with GHC
 
 ----------------------------------------------------------- fin.
