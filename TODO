@@ -7,4 +7,6 @@ Data.Combinatorics.Binomial:
     * Benchmarking
     - Other implementations?
 
+* Memory analysis. E.g., making sure we can replicate Luschny's memory bound for binomials.
+
 * Talk to people re integrating HaskellForMaths, gamma, statistics, and combinatorics

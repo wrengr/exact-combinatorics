@@ -97,13 +97,25 @@ binomial n k_
             else acc
         | otherwise = acc * go n k 0 1
         where
-        -- TODO: would it be faster to accumulate the power, and then use repeated squaring for the exponentiation? (N.B., that's how (GHC.Real.^) is implemented. Though theuy check for the exponent being ==0 or <0, and probably won't see that it can't be here.)
         go n' k' r p
             | n' > 0 =
                 if n' `rem` prime < (k' `rem` prime) + r
                 then go (n' `quot` prime) (k' `quot` prime) 1 $! p * prime
                 else go (n' `quot` prime) (k' `quot` prime) 0 p
             | otherwise = p
+        {-
+        -- TODO: is this any faster? Need some solid benchmarks that ignore the overhead of generating the primes. It should be faster since it only uses O(log_2 p) multiplications instead of O(p), but maybe there's more overhead or something?
+        
+        | otherwise = acc * (prime ^ go n k 0 0)
+        where
+        go n' k' r p
+            | n' > 0 =
+                if n' `rem` prime < (k' `rem` prime) + r
+                then go (n' `quot` prime) (k' `quot` prime) 1 $! p+1
+                else go (n' `quot` prime) (k' `quot` prime) 0 p
+            | otherwise = p `asTypeOf` acc
+        -}
+
 
 {-
 -- | Fast binomial. From Peter Luschny 2010-02-01, LGPL 2.1 or CC-BY-SA 3.0.
