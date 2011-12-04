@@ -23,6 +23,7 @@ binomial_naive n k
     | otherwise =
         factorial_naive n `quot` (factorial_naive k * factorial_naive (n-k))
 
+-- TODO: a memoizing implementation based on pascal's triangle. cf <http://www.polyomino.f2s.com/david/haskell/hs/CombinatoricsCounting.hs.txt>
 
 
 -- | A fast implementation, based on Peter Luschny 2010-02-01.

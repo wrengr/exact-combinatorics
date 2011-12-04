@@ -1,4 +1,5 @@
 {-# OPTIONS_GHC -Wall -fwarn-tabs #-}
+{-# LANGUAGE CPP #-}
 ----------------------------------------------------------------
 --                                                    2011.12.04
 -- |
@@ -7,24 +8,39 @@
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
 -- Stability   :  experimental
--- Portability :  Haskell98
+-- Portability :  Haskell98 + CPP
 --
--- The factorial numbers <http://oeis.org/A000142>. For negative inputs, all functions return 0 (rather than throwing an exception or using 'Maybe').
+-- The factorial numbers (<http://oeis.org/A000142>). For negative
+-- inputs, all functions return 0 (rather than throwing an exception
+-- or using 'Maybe').
 --
 -- Limits:
 --
--- * 12! is the largest value that can fit in 'Data.Int.Int32'
+-- * 12! is the largest value that can fit in 'Int32'
 --
--- * 20! is the largest value that can fit in 'Data.Int.Int64'
+-- * 20! is the largest value that can fit in 'Int64'
 ----------------------------------------------------------------
 module Math.Combinatorics.Factorial where
 
+#ifdef __HADDOCK__
+import Data.Int (Int32, Int64)
+#endif
 
 -- | The naive but obviously correct implementation.
 factorial_naive :: (Integral a) => a -> a
 factorial_naive n
     | n < 0     = 0
     | otherwise = product [1..n]
+
+{-
+-- from <http://www.polyomino.f2s.com/david/haskell/hs/CombinatoricsCounting.hs.txt>
+
+fallingFactorial n k = product [n - fromInteger i | i <- [0..toInteger k - 1] ]
+-- == factorial n `div` factorial (n-k)
+
+risingFactorial n k = product [n + fromInteger i | i <- [0..toInteger k - 1] ]
+-- == factorial (n+k) `div` factorial n
+-}
 
 
 -- | A common under-approximation of the factorial numbers.

@@ -14,6 +14,7 @@
 -- Stability   :  experimental
 -- Portability :  Haskell98
 --
+-- The prime numbers (<http://oeis.org/A000040>).
 ----------------------------------------------------------------
 module Math.Combinatorics.Primes (primes, primesFromTo) where
 
