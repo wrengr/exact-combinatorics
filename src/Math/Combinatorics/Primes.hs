@@ -22,7 +22,7 @@ module Math.Combinatorics.Primes (primes) where
 data Wheel = Wheel {-# UNPACK #-}!Int ![Int]
 
 
--- BUG: the CAF is nice for sharing, but what about when we want fusion and to avoid sharing?
+-- BUG: the CAF is nice for sharing, but what about when we want fusion and to avoid sharing? Using Data.IntList seems to only increase the overhead. I guess things aren't being memoized/freed like they should...
 
 -- | The prime numbers. Implemented with the algorithm in:
 --
@@ -57,22 +57,5 @@ primes = seive wheels primes primeSquares
         noFactorIn (p:ps) (q:qs) x =
             q > x || x `mod` p > 0 && noFactorIn ps qs x
 
-----------------------------------------------------------------
-{-
-data IntList
-    = Chunk {-# UNPACK #-}!Int {-# UNPACK #-}!(Ptr Int) IntList
-
-chunkSize :: Int
-chunkSize = 256 -- TODO: choose this intelligently
-
-toIntList :: [Int] -> IntList
-toIntList = go 0 (unsafePerformIO $ newArray chunkSize)
-    where
-    go 0 _ []            = Chunk 0 null
-    go i a []            = Chunk i a (Chunk 0 null)
-    go i a xxs@(x:xs)
-        | i == chunkSize = Chunk i a (toIntList xxs)
-        | otherwise      = go (i+1) (unsafePerformIO $ poke a (i+1) x) xs
--}
 ----------------------------------------------------------------
 ----------------------------------------------------------- fin.

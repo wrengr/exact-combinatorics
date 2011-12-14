@@ -11,9 +11,9 @@
 --
 ----------------------------------------------------------------
 module Math.Combinatorics.BinomialBench where
+import Data.List                    (foldl')
 import Math.Combinatorics.Primes    (primes)
 import Math.Combinatorics.Factorial (factorial_naive)
-import Data.List                    (foldl')
 
 import qualified Criterion.Main  as C
 import qualified Control.DeepSeq as D (rnf)
@@ -43,11 +43,11 @@ main =
     ns :: [Int]
     {-# INLINE ns #-}
     ns =
-        [ 1000     -- 0 << 1 <> 2 < 4 < 3 (ocasional 2<1, but generally 1<2)
+        [ 1000
         , 5000
         , 10000
         , 50000
-        , 100000   -- 0 << 1 <> 2 < 4 < 3
+        , 100000
         , 500000
         , 1000000
         ]
@@ -56,14 +56,14 @@ main =
     {-# INLINE getKs #-}
     getKs n = map ($n)
         [ (`div` 100)
-        , (`div` 70)
-        , (`div` 50)
+        -- , (`div` 70)
+        -- , (`div` 50)
         , (`div` 30)
-        , (`div` 20)
+        -- , (`div` 20)
         , (`div` 15)
-        , (`div` 10)
+        -- , (`div` 10)
         , (`div` 5)
-        , (`div` 3)
+        -- , (`div` 3)
         , (`div` 2)
         ]
 
@@ -131,9 +131,9 @@ binomial_1 n k_
             | otherwise = p
 
 
--- | Oddly, factoring out the basis conditions makes it slower for
+-- | Oddly, at -O1, factoring out the basis conditions makes it slower for
 -- small @n@ with extremal @k@, though it gets faster for large
--- @n@. The differences are marginal in any case (+/- 1--3%).
+-- @n@. The differences are marginal in any case (+/- 1--3%). With -O2 this starts reliably outperforming 'binomial_1', however the difference is still marginal.
 binomial_2 :: (Integral a) => a -> a -> a
     -- The result type could be any (Num b) if desired.
 {-# SPECIALIZE binomial_2 ::

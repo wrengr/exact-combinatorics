@@ -11,9 +11,9 @@
 --
 ----------------------------------------------------------------
 module Math.Combinatorics.Binomial where
-import Math.Combinatorics.Primes    (primes)
-import Math.Combinatorics.Factorial (factorial_naive)
+
 import Data.List                    (foldl')
+import Math.Combinatorics.Primes    (primes)
 
 {-
 <http://mathworld.wolfram.com/BinomialCoefficient.html>
@@ -50,7 +50,7 @@ implementation.
 -- TODO: give a version that returns the prime-power factorization as [(Int,Int)]
 
 
--- | Binomial coefficients. The naive definition is:
+-- | Exact binomial coefficients. The naive definition is:
 --
 -- > binomial n k
 -- >     | k < 0     = 0
@@ -81,22 +81,16 @@ binomial :: (Integral a) => a -> a -> a
     Int -> Int -> Int
     #-}
 binomial n k_
-    | k_ <  0   = 0
-    | k_ >  n   = 0
-    | k_ == 0   = 1
-    | k_ == n   = 1
-{- -- BENCH: apparently this is an unreliable optimization.
     | k_ <= 0   = if k_ == 0 then 1 else 0
     | k_ >= n   = if k_ == n then 1 else 0
--}
     | otherwise =
         foldl'
             (\acc prime -> step acc (fromIntegral prime))
             1
             (takeWhile (fromIntegral n >=) primes)
-        -- BUG: takeWhile isn't a good producer, so we shouldn't
-        -- just (map fromIntegral). But take is a good producer,
-        -- so why isn't takeWhile?
+        -- BUG: 'takeWhile' isn't a good producer, so we shouldn't
+        -- just @map fromIntegral@. But 'take' is a good producer,
+        -- so why isn't 'takeWhile'?
     where
     -- TODO: is it faster to replace (`quot` 2) by (`shiftR` 1) ?
     -- TODO: since we know the second operand to quot/rem is positive,

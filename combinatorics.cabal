@@ -13,8 +13,8 @@ License:        BSD3
 License-File:   LICENSE
 
 Category:       Statistics, Math
-Synopsis:       Efficient exact computation of common combinatoric functions.
-Description:    Efficient exact computation of common combinatoric functions.
+Synopsis:       Efficient computation of common combinatoric functions.
+Description:    Efficient computation of common combinatoric functions.
 
 -- By and large Cabal >=1.2 is fine; but >= 1.6 gives tested-with:
 -- and source-repository:.
@@ -33,11 +33,6 @@ Flag base4
     Description: base-4.0 emits "Prelude deprecated" messages in
                  order to get people to be explicit about which
                  version of base they use.
-Flag splitBase
-    Default:     True
-    Description: base-3.0 (GHC 6.8) broke out the packages: array,
-                 bytestring, containers, directory, old-locale,
-                 old-time, packedstring, pretty, process, random.
 
 ----------------------------------------------------------------
 Library
@@ -45,6 +40,7 @@ Library
     Exposed-Modules: Math.Combinatorics.Primes
                    , Math.Combinatorics.Factorial
                    , Math.Combinatorics.Binomial
+    -- Data.IntList
     
     if flag(base4)
         Build-Depends: base >= 4 && < 5
