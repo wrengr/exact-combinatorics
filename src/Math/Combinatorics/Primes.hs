@@ -5,7 +5,7 @@
     -fno-warn-name-shadowing
     #-}
 ----------------------------------------------------------------
---                                                    2011.12.04
+--                                                    2011.12.07
 -- |
 -- Module      :  Math.Combinatorics.Primes
 -- Copyright   :  Copyright (c) 2011 wren ng thornton
@@ -19,7 +19,7 @@
 module Math.Combinatorics.Primes (primes) where
 
 
-data Wheel = Wheel {-# UNPACK #-}!Int [Int]
+data Wheel = Wheel {-# UNPACK #-}!Int ![Int]
 
 
 -- BUG: the CAF is nice for sharing, but what about when we want fusion and to avoid sharing?
@@ -57,5 +57,22 @@ primes = seive wheels primes primeSquares
         noFactorIn (p:ps) (q:qs) x =
             q > x || x `mod` p > 0 && noFactorIn ps qs x
 
+----------------------------------------------------------------
+{-
+data IntList
+    = Chunk {-# UNPACK #-}!Int {-# UNPACK #-}!(Ptr Int) IntList
+
+chunkSize :: Int
+chunkSize = 256 -- TODO: choose this intelligently
+
+toIntList :: [Int] -> IntList
+toIntList = go 0 (unsafePerformIO $ newArray chunkSize)
+    where
+    go 0 _ []            = Chunk 0 null
+    go i a []            = Chunk i a (Chunk 0 null)
+    go i a xxs@(x:xs)
+        | i == chunkSize = Chunk i a (toIntList xxs)
+        | otherwise      = go (i+1) (unsafePerformIO $ poke a (i+1) x) xs
+-}
 ----------------------------------------------------------------
 ----------------------------------------------------------- fin.

@@ -13,8 +13,8 @@ License:        BSD3
 License-File:   LICENSE
 
 Category:       Statistics, Math
-Synopsis:       Common combinatoric functions.
-Description:    Common combinatoric functions.
+Synopsis:       Efficient exact computation of common combinatoric functions.
+Description:    Efficient exact computation of common combinatoric functions.
 
 -- By and large Cabal >=1.2 is fine; but >= 1.6 gives tested-with:
 -- and source-repository:.

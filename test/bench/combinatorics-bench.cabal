@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
--- wren ng thornton <wren@community.haskell.org>    ~ 2011.12.04
+-- wren ng thornton <wren@community.haskell.org>    ~ 2011.12.14
 ----------------------------------------------------------------
 
 Name:           combinatorics-bench
@@ -10,7 +10,7 @@ Author:         wren ng thornton
 Maintainer:     wren@community.haskell.org
 Copyright:      Copyright (c) 2011 wren ng thornton
 License:        BSD3
-License-File:   LICENSE
+License-File:   ../../LICENSE
 
 Category:       Statistics, Math
 Synopsis:       Common combinatoric functions.
@@ -19,8 +19,7 @@ Description:    Common combinatoric functions.
 -- By and large Cabal >=1.2 is fine; but >= 1.6 gives tested-with:
 -- and source-repository:.
 Cabal-Version:  >= 1.6
--- We need a custom build in order to define __HADDOCK__
-Build-Type:     Custom
+Build-Type:     Simple
 Tested-With:    GHC == 6.12.1
 
 Source-Repository head
@@ -57,6 +56,7 @@ Executable bench-binomial
     
     Build-Depends: combinatorics >= 0.1.0
                  , criterion     >= 0.5.0
+                 , deepseq       >= 1.1.0
 
     if flag(base4)
         Build-Depends: base >= 4 && < 5
@@ -64,8 +64,8 @@ Executable bench-binomial
         Build-Depends: base < 4
     
     Hs-Source-Dirs: .
-    Main-Is:        BinomialBench.hs
-    GHC-Options:    -main-is BinomialBench.main
+    Main-Is:        Math/Combinatorics/BinomialBench.hs
+    GHC-Options:    -main-is Math.Combinatorics.BinomialBench.main
 
 ----------------------------------------------------------------
 ----------------------------------------------------------- fin.
