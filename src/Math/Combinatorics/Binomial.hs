@@ -9,6 +9,9 @@
 -- Stability   :  experimental
 -- Portability :  Haskell98
 --
+-- Binomial coefficients, aka the count of possible combinations.
+-- For negative inputs, all functions return 0 (rather than throwing
+-- an exception or using 'Maybe').
 ----------------------------------------------------------------
 module Math.Combinatorics.Binomial where
 

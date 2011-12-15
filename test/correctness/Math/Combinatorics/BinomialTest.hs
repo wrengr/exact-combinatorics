@@ -19,14 +19,12 @@ import qualified Test.SmallCheck as SC
 
 ----------------------------------------------------------------
 
--- BUG: both QC and SC claim (13`choose`1) fails, even though both functions produce 13... The 'prop_binomial' returns False, though if we call its body directly, then it returns True. wtf? it's something reliable about (13`choose`1) though...
-
--- BUG: QC claims (141`choose`0), (91`choose`0), (18`choose`1), (27`choose`1),... fails. Again, calling the body of 'prop_binomial' works fine, bug calling 'prop_binomial' directly gives that strande division-by-zero bug. wtf?--- ah, maybe (n-k)<0 causes a zero denominator in 'quot'? But the direct call works fine...
-
 main :: IO ()
 main = do
-    QC.quickCheck    prop_binomial
-    SC.smallCheck 20 prop_binomial
+    SC.smallCheck 21 prop_binomial -- overflow and out-of-bounds checking
+    SC.smallCheck 100
+        (\n k -> cond_binomialIsNonZero n k SC.==> prop_binomial n k)
+    -- QC.quickCheck prop_binomial -- Need a better generator
 
 ----------------------------------------------------------------
 
@@ -44,8 +42,12 @@ binomial_naive n k
 
 
 -- TODO: improve the seach space with (==>), SmallCheck.Nat, and QuickCheck.NonNegative
-prop_binomial :: Int -> Int -> Bool
+-- N.B., to avoid bizarro bugs where this prop returns false even though calling its body directly returns true, we must use Integer. The bizarro bugs are caused by integer overflow (12! is the largest that can fit into Int32; 20! is largest tfor Int64)
+prop_binomial :: Integer -> Integer -> Bool
 prop_binomial n k = binomial_naive n k == binomial n k
+
+cond_binomialIsNonZero ::  Integer -> Integer -> Bool
+cond_binomialIsNonZero n k = (n > 0) && (k > 0) && (n >= k)
 
 ----------------------------------------------------------------
 ----------------------------------------------------------- fin.
