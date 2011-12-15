@@ -1,12 +1,13 @@
 Data.Combinatorics.Factorial:
     * Various implementations
-    + Get direct access to the GMP version.
+    * Get direct access to the GMP version.
     * Benchmarking
 
 Data.Combinatorics.Binomial:
-    * Benchmarking
-    - Other implementations?
+    * Other implementations?
 
 * Memory analysis. E.g., making sure we can replicate Luschny's memory bound for binomials.
+
+* Fix the bizarro bug in the test suite.
 
 * Talk to people re integrating HaskellForMaths, gamma, statistics, and combinatorics

@@ -81,6 +81,7 @@ binomial :: (Integral a) => a -> a -> a
     Int -> Int -> Int
     #-}
 binomial n k_
+    | n  <  0   = 0 -- N.B., @binomial_naive 0 0 == 1@
     | k_ <= 0   = if k_ == 0 then 1 else 0
     | k_ >= n   = if k_ == n then 1 else 0
     | otherwise =

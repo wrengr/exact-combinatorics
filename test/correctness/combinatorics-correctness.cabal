@@ -1,0 +1,56 @@
+----------------------------------------------------------------
+-- wren ng thornton <wren@community.haskell.org>    ~ 2011.12.14
+----------------------------------------------------------------
+
+Name:           combinatorics-correctness
+Version:        0.1.0
+Stability:      experimental
+Homepage:       http://code.haskell.org/~wren/
+Author:         wren ng thornton
+Maintainer:     wren@community.haskell.org
+Copyright:      Copyright (c) 2011 wren ng thornton
+License:        BSD3
+License-File:   ../../LICENSE
+
+Category:       Statistics, Math
+Synopsis:       Common combinatoric functions.
+Description:    Common combinatoric functions.
+
+-- By and large Cabal >=1.2 is fine; but >= 1.6 gives tested-with:
+-- and source-repository:.
+Cabal-Version:  >= 1.6
+Build-Type:     Simple
+Tested-With:    GHC == 6.12.1
+
+Source-Repository head
+    Type:     darcs
+    Location: http://community.haskell.org/~wren/combinatorics
+
+----------------------------------------------------------------
+Flag base4
+    Default:     True
+    Description: base-4.0 emits "Prelude deprecated" messages in
+                 order to get people to be explicit about which
+                 version of base they use.
+
+----------------------------------------------------------------
+Executable test-binomial
+    GHC-Options: -fforce-recomp
+    if flag(threaded)
+        GHC-Options: -threaded
+    
+    Build-Depends: combinatorics >= 0.1.0
+                 , QuickCheck    >= 2.1.0
+                 , smallcheck    >= 0.4
+
+    if flag(base4)
+        Build-Depends: base >= 4 && < 5
+    else
+        Build-Depends: base < 4
+    
+    Hs-Source-Dirs: .
+    Main-Is:        Math/Combinatorics/BinomialTest.hs
+    GHC-Options:    -main-is Math.Combinatorics.BinomialTest.main
+
+----------------------------------------------------------------
+----------------------------------------------------------- fin.
