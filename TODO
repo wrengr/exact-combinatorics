@@ -8,6 +8,4 @@ Data.Combinatorics.Binomial:
 
 * Memory analysis. E.g., making sure we can replicate Luschny's memory bound for binomials.
 
-* Fix the bizarro bug in the test suite.
-
 * Talk to people re integrating HaskellForMaths, gamma, statistics, and combinatorics

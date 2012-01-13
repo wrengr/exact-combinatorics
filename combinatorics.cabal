@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
--- wren ng thornton <wren@community.haskell.org>    ~ 2011.12.04
+-- wren ng thornton <wren@community.haskell.org>    ~ 2012.01.12
 ----------------------------------------------------------------
 
 Name:           combinatorics
@@ -8,7 +8,7 @@ Stability:      experimental
 Homepage:       http://code.haskell.org/~wren/
 Author:         wren ng thornton
 Maintainer:     wren@community.haskell.org
-Copyright:      Copyright (c) 2011 wren ng thornton
+Copyright:      Copyright (c) 2011--2012 wren ng thornton
 License:        BSD3
 License-File:   LICENSE
 
