@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall -fwarn-tabs #-}
 ----------------------------------------------------------------
---                                                    2012.01.12
+--                                                    2012.01.27
 -- |
 -- Module      :  Math.Combinatorics.Binomial
 -- Copyright   :  Copyright (c) 2011 wren ng thornton
@@ -54,9 +54,11 @@ implementation.
 -- TODO: give a version that returns the prime-power factorization as [(Int,Int)]
 
 
--- | Exact binomial coefficients. The naive definition is:
+-- | /Exact/ binomial coefficients. For a fast /approximation/ see
+-- @math-functions:Numeric.SpecFunctions.choose@ instead. The naive
+-- definition of the binomial coefficients is:
 --
--- > binomial n k
+-- > n `choose` k
 -- >     | k < 0     = 0
 -- >     | k > n     = 0
 -- >     | otherwise = factorial n / (factorial k * factorial (n-k))
@@ -68,7 +70,7 @@ implementation.
 -- faster than the naive implementation); however, subsequent calls
 -- will be extremely fast, since we memoize the list of 'primes'.
 -- Do note, however, that this will result in a space leak if you
--- call @binomial@ for an extremely large @n@ and then don't need
+-- call @choose@ for an extremely large @n@ and then don't need
 -- that many primes in the future. Hopefully future versions will
 -- correct this issue.
 --
@@ -78,13 +80,13 @@ implementation.
 --    <http://www.jstor.org/stable/2323099>,
 --    <http://dl.acm.org/citation.cfm?id=26272>
 --
-binomial :: (Integral a) => a -> a -> a
+choose :: (Integral a) => a -> a -> a
     -- The result type could be any (Num b) if desired.
-{-# SPECIALIZE binomial ::
+{-# SPECIALIZE choose ::
     Integer -> Integer -> Integer,
     Int -> Int -> Int
     #-}
-binomial n k_
+n `choose` k_
     | n `seq` k_`seq` False = undefined
     | 0 < k_ && k_ < n = 
         k `seq` nk `seq` sqrtN `seq`
