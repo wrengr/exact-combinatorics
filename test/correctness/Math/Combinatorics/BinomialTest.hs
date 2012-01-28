@@ -3,7 +3,7 @@
 --                                                    2011.12.14
 -- |
 -- Module      :  Math.Combinatorics.BinomialTest
--- Copyright   :  Copyright (c) 2011 wren ng thornton
+-- Copyright   :  Copyright (c) 2011--2012 wren ng thornton
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
 -- Stability   :  experimental
@@ -11,8 +11,7 @@
 --
 ----------------------------------------------------------------
 module Math.Combinatorics.BinomialTest where
-import Math.Combinatorics.Factorial (factorial_naive)
-import Math.Combinatorics.Binomial  (binomial)
+import Math.Combinatorics.Binomial (choose)
 
 import qualified Test.QuickCheck as QC
 import qualified Test.SmallCheck as SC
@@ -27,6 +26,16 @@ main = do
     -- QC.quickCheck prop_binomial -- Need a better generator
 
 ----------------------------------------------------------------
+
+-- | The naive but obviously correct implementation.
+factorial_naive :: (Integral a) => a -> a
+{-# SPECIALIZE factorial_naive ::
+    Integer -> Integer,
+    Int -> Int
+    #-}
+factorial_naive n
+    | n < 0     = 0
+    | otherwise = product [1..n]
 
 -- | The naive implementation: @n! / (k! * (n-k)!)@.
 binomial_naive :: (Integral a) => a -> a -> a
@@ -44,7 +53,7 @@ binomial_naive n k
 -- TODO: improve the seach space with (==>), SmallCheck.Nat, and QuickCheck.NonNegative
 -- N.B., to avoid bizarro bugs where this prop returns false even though calling its body directly returns true, we must use Integer. The bizarro bugs are caused by integer overflow (12! is the largest that can fit into Int32; 20! is largest tfor Int64)
 prop_binomial :: Integer -> Integer -> Bool
-prop_binomial n k = binomial_naive n k == binomial n k
+prop_binomial n k = binomial_naive n k == (n `choose` k)
 
 cond_binomialIsNonZero ::  Integer -> Integer -> Bool
 cond_binomialIsNonZero n k = (n > 0) && (k > 0) && (n >= k)

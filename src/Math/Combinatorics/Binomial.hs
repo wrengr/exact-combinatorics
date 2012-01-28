@@ -54,14 +54,14 @@ implementation.
 -- TODO: give a version that returns the prime-power factorization as [(Int,Int)]
 
 
--- | /Exact/ binomial coefficients. For a fast /approximation/ see
+-- | Exact binomial coefficients. For a fast approximation see
 -- @math-functions:Numeric.SpecFunctions.choose@ instead. The naive
 -- definition of the binomial coefficients is:
 --
 -- > n `choose` k
 -- >     | k < 0     = 0
 -- >     | k > n     = 0
--- >     | otherwise = factorial n / (factorial k * factorial (n-k))
+-- >     | otherwise = factorial n `div` (factorial k * factorial (n-k))
 --
 -- However, we use a fast implementation based on the prime-power
 -- factorization of the result (Goetgheluck, 1987). Each time @n@

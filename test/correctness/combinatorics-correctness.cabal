@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
--- wren ng thornton <wren@community.haskell.org>    ~ 2011.12.14
+-- wren ng thornton <wren@community.haskell.org>    ~ 2012.01.27
 ----------------------------------------------------------------
 
 Name:           combinatorics-correctness
@@ -8,7 +8,7 @@ Stability:      experimental
 Homepage:       http://code.haskell.org/~wren/
 Author:         wren ng thornton
 Maintainer:     wren@community.haskell.org
-Copyright:      Copyright (c) 2011 wren ng thornton
+Copyright:      Copyright (c) 2011--2012 wren ng thornton
 License:        BSD3
 License-File:   ../../LICENSE
 
@@ -34,10 +34,25 @@ Flag base4
                  version of base they use.
 
 ----------------------------------------------------------------
-Executable test-binomial
+Executable test-factorial
+    Main-Is:     Math/Combinatorics/FactorialTest.hs
+    GHC-Options: -main-is Math.Combinatorics.FactorialTest.main
     GHC-Options: -fforce-recomp
-    if flag(threaded)
-        GHC-Options: -threaded
+    
+    Build-Depends: combinatorics >= 0.1.0
+                 , QuickCheck    >= 2.1.0
+                 , smallcheck    >= 0.4
+
+    if flag(base4)
+        Build-Depends: base >= 4 && < 5
+    else
+        Build-Depends: base < 4
+
+----------------------------------------------------------------
+Executable test-binomial
+    Main-Is:     Math/Combinatorics/BinomialTest.hs
+    GHC-Options: -main-is Math.Combinatorics.BinomialTest.main
+    GHC-Options: -fforce-recomp
     
     Build-Depends: combinatorics >= 0.1.0
                  , QuickCheck    >= 2.1.0
@@ -48,9 +63,6 @@ Executable test-binomial
     else
         Build-Depends: base < 4
     
-    Hs-Source-Dirs: .
-    Main-Is:        Math/Combinatorics/BinomialTest.hs
-    GHC-Options:    -main-is Math.Combinatorics.BinomialTest.main
 
 ----------------------------------------------------------------
 ----------------------------------------------------------- fin.

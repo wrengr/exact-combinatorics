@@ -1,9 +1,9 @@
 {-# OPTIONS_GHC -Wall -fwarn-tabs #-}
 ----------------------------------------------------------------
---                                                    2012.01.15
+--                                                    2012.01.28
 -- |
 -- Module      :  Math.Combinatorics.Factorial
--- Copyright   :  Copyright (c) 2011 wren ng thornton
+-- Copyright   :  Copyright (c) 2011--2012 wren ng thornton
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
 -- Stability   :  experimental
@@ -18,8 +18,10 @@
 -- * 12! is the largest factorial that can fit into 'Int32'.
 --
 -- * 20! is the largest factorial that can fit into 'Int64'.
+--
+-- * 170! is the largest factorial that can fit into 64-bit 'Double'.
 ----------------------------------------------------------------
-module Math.Combinatorics.Factorial where
+module Math.Combinatorics.Factorial (factorial) where
 
 import Data.Int  (Int32, Int64)
 import Data.Word (Word)
@@ -33,8 +35,6 @@ fallingFactorial n k = product [n - fromInteger i | i <- [0..toInteger k - 1] ]
 
 risingFactorial n k = product [n + fromInteger i | i <- [0..toInteger k - 1] ]
 -- == factorial (n+k) `div` factorial n
--}
-
 
 -- | A common under-approximation of the factorial numbers.
 factorial_stirling :: (Integral a) => a -> a
@@ -50,6 +50,7 @@ factorial_stirling n
     where
     n' :: Double
     n' = fromIntegral n
+-}
 
 
 ----------------------------------------------------------------
@@ -60,12 +61,28 @@ factorial_stirling n
                   if odd j then j else 1
           \right)^k
 -}
+-- TODO: Benchmark this version at (Int->a) vs the same thing at (a->a)
 
-factorial_splitRecursive :: (Integral a, Bits a) => Int -> a
-factorial_splitRecursive n
+-- | Exact factorial numbers. For a fast approximation see
+-- @math-functions:Numeric.SpecFunctions.factorial@ instead. The
+-- naive definition of the factorial numbers is:
+--
+-- > factorial n
+-- >     | n < 0     = 0
+-- >     | otherwise = product [1..n]
+--
+-- However, we use a fast algorithm based on the split-recursive form:
+--
+-- > factorial n =
+-- >     2^(n - popCount n) * product [(q k)^k | forall k, k >= 1]
+-- >     where
+-- >     q k = product [j | forall j, n*2^(-k) < j <= n*2^(-k+1), odd j]
+--
+factorial :: (Integral a, Bits a) => Int -> a
+factorial n
     | n < 0     = 0
     | n < 2     = 1
-    | otherwise = go (floorLog2 n) 0 0 1 1 1 1
+    | otherwise = go (highestBitPosition_Int n - 1) 0 0 1 1 1 1
     where
     -- lo  == n/2^(k+1)
     -- lo' == n/2^k
@@ -82,19 +99,19 @@ factorial_splitRecursive n
                 len = (hi' - hi) `div` 2 -- TODO: why not (`shiftR`1) or (`quot`2) ?
             in if len > 0
                 then let
-                    (q, j') = partialProduct (fromIntegral len) j
+                    (q, j') = partialProduct len j
                     p' = p * q
                     r' = r * p'
                     in go (k - 1) lo' (s + lo) hi' j' p' r'
                 else   go (k - 1) lo' (s + lo) hi' j  p  r
         --
-        -- | fromIntegral s /= fromIntegral n - popCount (fromIntegral n) = error "factorial_splitRecursive: bug in the computation of n - popCount n"
+        -- fromIntegral s /= fromIntegral n - popCount (fromIntegral n) = error "factorial_splitRecursive: bug in the computation of n - popCount n"
         | otherwise = r `shiftL` s
     
     -- | The product of odd @j@s between n/2^k and 2*n/2^k. @len@
     -- is the count of @j@ terms to multiply, where the @j@ state
     -- argument is the largest previously used term.
-    partialProduct :: (Integral a) => a -> a -> (a,a)
+    partialProduct :: (Integral a) => Int -> a -> (a,a)
     partialProduct len j
         | half == 0 = (,) <!>  (j+2)        <!> (j+2)
         | len  == 2 = (,) <!> ((j+2)*(j+4)) <!> (j+4)
@@ -108,6 +125,11 @@ factorial_splitRecursive n
         (<!>) = ($!) -- fix associativity
 
 
+floorLog2 :: (Integral a, Bits a) => a -> Int
+floorLog2 n
+    | n <= 0    = error "floorLog2: argument must be positive"
+    | otherwise = highestBitPosition n - 1
+    
 highestBitPosition :: (Integral a, Bits a) => a -> Int
 {-# INLINE highestBitPosition #-}
 {-# SPECIALIZE highestBitPosition :: Int -> Int #-}
@@ -121,15 +143,10 @@ highestBitPosition n0
         | n > 0     = go (d+1) (n `shiftR` 1)
         | otherwise = d
 
-{-# NOINLINE _highestBitPosition_negative #-}
 _highestBitPosition_negative :: String
+{-# NOINLINE _highestBitPosition_negative #-}
 _highestBitPosition_negative =
     "highestBitPosition: argument must be non-negative"
-
-floorLog2 :: (Integral a, Bits a) => a -> Int
-floorLog2 n
-    | n <= 0    = error "floorLog2: argument must be positive"
-    | otherwise = highestBitPosition n - 1
 
 floorLog2_Int :: Int -> Int
 floorLog2_Int n
@@ -211,7 +228,7 @@ factorial_primeSwing n0
                     $ primorial (n `div` 2 + 1) n
                     * xmathProduct primeList 0 count
     
-    -- With hsc2hs we can use #def to define these as static C-style arrays, and then use base:Foreign.Marshall.Array to access them. Instead of using array:Data.Array.Unboxed
+    -- With hsc2hs we can use #def to define these as static C-style arrays, and then use base:Foreign.Marshall.Array to access them. Instead of using array:Data.Array.Unboxed; Or we could try the Addr# trick used in Warp
     smallOddSwing :: UArray Int Int32
     smallOddSwing = listArray (0,32)
         [ 1, 1, 1, 3, 3, 15, 5, 35, 35, 315, 63, 693, 231, 3003
