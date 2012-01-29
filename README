@@ -25,11 +25,8 @@ The test step is optional and currently does nothing.
 Portability
 ===========
 
-An attempt has been made to keep this library portable. However,
-it uses some common language extensions (i.e., ones implemented by
-Hugs as well as GHC) in order to get the Haddock documentation to
-come out right. All the required language extensions are:
-
-CPP
+An attempt has been made to keep this library as portable as possible.
+It is Haskell98 except for the use of CPP, in order to get the
+Haddock documentation to come out right.
 
 ----------------------------------------------------------- fin.
