@@ -1,19 +1,19 @@
 {-# OPTIONS_GHC -Wall -fwarn-tabs #-}
 ----------------------------------------------------------------
---                                                    2012.01.27
+--                                                    2012.01.28
 -- |
 -- Module      :  Math.Combinatorics.Binomial
 -- Copyright   :  Copyright (c) 2011 wren ng thornton
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
--- Stability   :  experimental
+-- Stability   :  provisional
 -- Portability :  Haskell98
 --
 -- Binomial coefficients, aka the count of possible combinations.
 -- For negative inputs, all functions return 0 (rather than throwing
 -- an exception or using 'Maybe').
 ----------------------------------------------------------------
-module Math.Combinatorics.Binomial where
+module Math.Combinatorics.Binomial (choose) where
 
 import Data.List                    (foldl')
 import Math.Combinatorics.Primes    (primes)
@@ -95,8 +95,8 @@ n `choose` k_
                 1
                 (takeWhile (fromIntegral n >=) primes)
         -- BUG: 'takeWhile' isn't a good producer, so we shouldn't
-        -- just @map fromIntegral@. But 'take' is a good producer,
-        -- so why isn't 'takeWhile'?
+        -- just @map fromIntegral@. In newer GHC my patch will make
+        -- it in for it to be a good producer (and a good consumer).
     | 0 <= k_ && k_ <= n = 1 -- N.B., @binomial_naive 0 0 == 1@
     | otherwise          = 0
     where

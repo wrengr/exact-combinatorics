@@ -4,7 +4,7 @@
 
 Name:           combinatorics
 Version:        0.1.0
-Stability:      experimental
+Stability:      provisional
 Homepage:       http://code.haskell.org/~wren/
 Author:         wren ng thornton
 Maintainer:     wren@community.haskell.org

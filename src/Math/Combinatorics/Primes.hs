@@ -11,7 +11,7 @@
 -- Copyright   :  Copyright (c) 2011 wren ng thornton
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
--- Stability   :  experimental
+-- Stability   :  provisional
 -- Portability :  Haskell98
 --
 -- The prime numbers (<http://oeis.org/A000040>).

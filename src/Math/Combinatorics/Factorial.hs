@@ -1,4 +1,5 @@
 {-# OPTIONS_GHC -Wall -fwarn-tabs #-}
+{-# LANGUAGE CPP #-}
 ----------------------------------------------------------------
 --                                                    2012.01.28
 -- |
@@ -6,8 +7,8 @@
 -- Copyright   :  Copyright (c) 2011--2012 wren ng thornton
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
--- Stability   :  experimental
--- Portability :  Haskell98
+-- Stability   :  provisional
+-- Portability :  Haskell98 + CPP
 --
 -- The factorial numbers (<http://oeis.org/A000142>). For negative
 -- inputs, all functions return 0 (rather than throwing an exception
@@ -23,8 +24,10 @@
 ----------------------------------------------------------------
 module Math.Combinatorics.Factorial (factorial) where
 
+-- N.B., we need a Custom cabal build-type for this to work.
+#ifdef __HADDOCK__
 import Data.Int  (Int32, Int64)
-import Data.Word (Word)
+#endif
 import Data.Bits
 
 {-
@@ -61,7 +64,6 @@ factorial_stirling n
                   if odd j then j else 1
           \right)^k
 -}
--- TODO: Benchmark this version at (Int->a) vs the same thing at (a->a)
 
 -- | Exact factorial numbers. For a fast approximation see
 -- @math-functions:Numeric.SpecFunctions.factorial@ instead. The
@@ -124,7 +126,7 @@ factorial n
         
         (<!>) = ($!) -- fix associativity
 
-
+{-
 floorLog2 :: (Integral a, Bits a) => a -> Int
 floorLog2 n
     | n <= 0    = error "floorLog2: argument must be positive"
@@ -152,6 +154,7 @@ floorLog2_Int :: Int -> Int
 floorLog2_Int n
     | n <= 0    = error "floorLog2_Int: argument must be positive"
     | otherwise = highestBitPosition_Int n - 1
+-}
 
 highestBitPosition_Int :: Int -> Int
 highestBitPosition_Int w = 
@@ -242,7 +245,7 @@ factorial_primeSwing n0
         , 39916800, 479001600, 6227020800, 87178291200, 1307674368000
         , 20922789888000, 355687428096000, 6402373705728000
         , 121645100408832000, 2432902008176640000 ]
--}
+
 
 -- cf <http://wiki.cs.pdx.edu/forge/popcount.html>
 -- cf <http://en.wikipedia.org/wiki/Hamming_weight>
@@ -268,8 +271,6 @@ popCount x0 =
     m2 = 0x3333333333333333    -- binary: 11001100...
     m4 = 0x0f0f0f0f0f0f0f0f    -- binary: 11110000...
 
-
-{-
 factorial_parallelPrimeSwing
 -}
 ----------------------------------------------------------------

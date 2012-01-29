@@ -25,10 +25,11 @@ The test step is optional and currently does nothing.
 Portability
 ===========
 
-An attempt has been made to keep this library portable, but it does
-rely on some common language extensions (i.e., ones implemented by
-Hugs as well as GHC). All required language extensions are:
+An attempt has been made to keep this library portable. However,
+it uses some common language extensions (i.e., ones implemented by
+Hugs as well as GHC) in order to get the Haddock documentation to
+come out right. All the required language extensions are:
 
-    CPP
+CPP
 
 ----------------------------------------------------------- fin.
