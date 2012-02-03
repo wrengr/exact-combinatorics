@@ -1,9 +1,9 @@
 {-# OPTIONS_GHC -Wall -fwarn-tabs #-}
 {-# LANGUAGE CPP #-}
 ----------------------------------------------------------------
---                                                    2012.01.28
+--                                                    2012.02.02
 -- |
--- Module      :  Math.Combinatorics.Factorial
+-- Module      :  Math.Combinatorics.Exact.Factorial
 -- Copyright   :  Copyright (c) 2011--2012 wren ng thornton
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
@@ -22,7 +22,7 @@
 --
 -- * 170! is the largest factorial that can fit into 64-bit 'Double'.
 ----------------------------------------------------------------
-module Math.Combinatorics.Factorial (factorial) where
+module Math.Combinatorics.Exact.Factorial (factorial) where
 
 -- N.B., we need a Custom cabal build-type for this to work.
 #ifdef __HADDOCK__
@@ -247,6 +247,7 @@ factorial_primeSwing n0
         , 121645100408832000, 2432902008176640000 ]
 
 
+-- Added to Bits class in base-4.5.0.0==ghc-7.4.1
 -- cf <http://wiki.cs.pdx.edu/forge/popcount.html>
 -- cf <http://en.wikipedia.org/wiki/Hamming_weight>
 -- | The number of set bits.

@@ -5,9 +5,9 @@
     -fno-warn-name-shadowing
     #-}
 ----------------------------------------------------------------
---                                                    2011.12.07
+--                                                    2012.02.02
 -- |
--- Module      :  Math.Combinatorics.Primes
+-- Module      :  Math.Combinatorics.Exact.Primes
 -- Copyright   :  Copyright (c) 2011 wren ng thornton
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
@@ -16,13 +16,16 @@
 --
 -- The prime numbers (<http://oeis.org/A000040>).
 ----------------------------------------------------------------
-module Math.Combinatorics.Primes (primes) where
+module Math.Combinatorics.Exact.Primes (primes) where
 
 
 data Wheel = Wheel {-# UNPACK #-}!Int ![Int]
 
 
--- BUG: the CAF is nice for sharing, but what about when we want fusion and to avoid sharing? Using Data.IntList seems to only increase the overhead. I guess things aren't being memoized/freed like they should...
+-- BUG: the CAF is nice for sharing, but what about when we want
+-- fusion and to avoid sharing? Using Data.IntList seems to only
+-- increase the overhead. I guess things aren't being memoized/freed
+-- like they should...
 
 -- | The prime numbers. Implemented with the algorithm in:
 --

@@ -1,9 +1,9 @@
 {-# OPTIONS_GHC -Wall -fwarn-tabs #-}
 ----------------------------------------------------------------
---                                                    2012.01.28
+--                                                    2012.02.02
 -- |
--- Module      :  Math.Combinatorics.Binomial
--- Copyright   :  Copyright (c) 2011 wren ng thornton
+-- Module      :  Math.Combinatorics.Exact.Binomial
+-- Copyright   :  Copyright (c) 2011--2012 wren ng thornton
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
 -- Stability   :  provisional
@@ -13,10 +13,10 @@
 -- For negative inputs, all functions return 0 (rather than throwing
 -- an exception or using 'Maybe').
 ----------------------------------------------------------------
-module Math.Combinatorics.Binomial (choose) where
+module Math.Combinatorics.Exact.Binomial (choose) where
 
-import Data.List                    (foldl')
-import Math.Combinatorics.Primes    (primes)
+import Data.List                       (foldl')
+import Math.Combinatorics.Exact.Primes (primes)
 
 {-
 <http://mathworld.wolfram.com/BinomialCoefficient.html>
