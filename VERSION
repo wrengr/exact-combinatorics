@@ -1,5 +1,6 @@
 0.2.0 (2012-02-02):
     - renamed to exact-combinatorics.
+    - moved Math.Combinatorics.* to Math.Combinatorics.Exact.*
 
 0.1.0 (2011-12-04):
     - init.
