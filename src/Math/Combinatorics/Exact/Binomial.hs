@@ -6,7 +6,7 @@
 -- Copyright   :  Copyright (c) 2011--2012 wren ng thornton
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
--- Stability   :  provisional
+-- Stability   :  experimental
 -- Portability :  Haskell98
 --
 -- Binomial coefficients, aka the count of possible combinations.

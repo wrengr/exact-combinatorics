@@ -7,7 +7,7 @@
 -- Copyright   :  Copyright (c) 2011--2012 wren ng thornton
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
--- Stability   :  provisional
+-- Stability   :  experimental
 -- Portability :  Haskell98 + CPP
 --
 -- The factorial numbers (<http://oeis.org/A000142>). For negative
