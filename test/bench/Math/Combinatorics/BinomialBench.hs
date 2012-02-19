@@ -141,7 +141,9 @@ binomial_1 n k_
 ----------------------------------------------------------------
 -- | Oddly, at -O1, factoring out the basis conditions makes it slower for
 -- small @n@ with extremal @k@, though it gets faster for large
--- @n@. The differences are marginal in any case (+/- 1--3%). With -O2 this starts reliably outperforming 'binomial_1', however the difference is still marginal.
+-- @n@. The differences are marginal in any case (+/- 1--3%). With
+-- -O2 this starts reliably outperforming 'binomial_1', however the
+-- difference is still marginal.
 binomial_2 :: (Integral a) => a -> a -> a
     -- The result type could be any (Num b) if desired.
 {-# SPECIALIZE binomial_2 ::
@@ -180,7 +182,22 @@ binomial_2 n k_
 
 
 ----------------------------------------------------------------
--- | A different factorization of the basis cases. At @-O1@ this is consistently (though not universally) better than 'binomial_2', though it's a toss up between 'binomial_1' and this one. At @-O2@ it seems generally better than both.
+{-
+When deciding how to break up the different base cases, consider
+the following 3D chart where X means logical impossibility and R
+means that we have to recurse:
+
+     k<0 k=0 k>0    k<0 k=0 k>0    k<0 k=0 k>0
+n<0  0   X   X      0   X   X      0   0   0
+n=0  0   X   X      X   1   X      X   X   0
+n>0  0   1   R      X   X   1      X   X   0
+         k<n            k=n            k>n
+-}
+
+-- | A different factorization of the basis cases. At @-O1@ this
+-- is consistently (though not universally) better than 'binomial_2',
+-- though it's a toss up between 'binomial_1' and this one. At @-O2@
+-- it seems generally better than both.
 binomial_25 :: (Integral a) => a -> a -> a
     -- The result type could be any (Num b) if desired.
 {-# SPECIALIZE binomial_25 ::
@@ -188,12 +205,12 @@ binomial_25 :: (Integral a) => a -> a -> a
     Int -> Int -> Int
     #-}
 binomial_25 n k_
-    | 0 < k_ && k_ < n = 
+    | 0 < k_ && k_ < n =
         foldl'
             (\acc prime -> step acc (fromIntegral prime))
             1
             (takeWhile (fromIntegral n >=) primes)
-            
+    
     | 0 <= k_ && k_ <= n = 1
     | otherwise          = 0
     where
@@ -226,12 +243,12 @@ binomial_250 :: (Integral a) => a -> a -> a
     Int -> Int -> Int
     #-}
 binomial_250 n k_
-    | 0 < k_ && k_ < n = 
+    | 0 < k_ && k_ < n =
         foldl'
             (\acc prime -> step acc (fromIntegral prime))
             1
             (takeWhile (fromIntegral n >=) primes)
-            
+    
     | 0 <= k_ && k_ <= n = 1
     | otherwise          = 0
     where
@@ -256,7 +273,8 @@ binomial_250 n k_
 
 
 ----------------------------------------------------------------
--- | It seems 'binomial_250' isn't strict in @n@, and @go@ not strict in @r@; let's fix that.
+-- | It seems 'binomial_250' isn't strict in @n@, and @go@ not
+-- strict in @r@; let's fix that.
 binomial_2501 :: (Integral a) => a -> a -> a
     -- The result type could be any (Num b) if desired.
 {-# SPECIALIZE binomial_2501 ::
@@ -265,7 +283,7 @@ binomial_2501 :: (Integral a) => a -> a -> a
     #-}
 binomial_2501 n k_
     | n `seq` k_`seq` False = undefined -- for strictness analysis
-    | 0 < k_ && k_ < n = 
+    | 0 < k_ && k_ < n =
         k `seq` nk `seq` sqrtN `seq` -- for strictness analysis
             foldl'
                 (\acc prime -> step acc (fromIntegral prime))
@@ -296,7 +314,8 @@ binomial_2501 n k_
             | otherwise = go (n' `quot` prime) (k' `quot` prime) 0 p
 
 
--- | This version doesn't float out the strictness on what @step@ closes over. It's marginally marginally slower.
+-- | This version doesn't float out the strictness on what @step@
+-- closes over. It's marginally marginally slower.
 binomial_2502 :: (Integral a) => a -> a -> a
     -- The result type could be any (Num b) if desired.
 {-# SPECIALIZE binomial_2502 ::
@@ -337,7 +356,8 @@ binomial_2502 n k_
 
 
 ----------------------------------------------------------------
--- | Try not closing over @prime@ in @go@ in order to avoid allocation of closures. Unfortunately is marginally slower.
+-- | Try not closing over @prime@ in @go@ in order to avoid allocation
+-- of closures. Unfortunately is marginally slower.
 binomial_25015 :: (Integral a) => a -> a -> a
     -- The result type could be any (Num b) if desired.
 {-# SPECIALIZE binomial_25015 ::
@@ -346,7 +366,7 @@ binomial_25015 :: (Integral a) => a -> a -> a
     #-}
 binomial_25015 n k_
     | n `seq` k_`seq` False = undefined -- for strictness analysis
-    | 0 < k_ && k_ < n = 
+    | 0 < k_ && k_ < n =
         k `seq` nk `seq` sqrtN `seq` -- for strictness analysis
             foldl'
                 (\acc prime -> step acc (fromIntegral prime))
@@ -378,7 +398,9 @@ binomial_25015 n k_
 
 
 ----------------------------------------------------------------
--- | A prettier variation on the guards of @step@, but unfortunately it's significantly slower due to branch-prediction\/common-case issues.
+-- | A prettier variation on the guards of @step@, but unfortunately
+-- it's significantly slower due to branch-prediction\/common-case
+-- issues.
 binomial_251 :: (Integral a) => a -> a -> a
     -- The result type could be any (Num b) if desired.
 {-# SPECIALIZE binomial_251 ::
@@ -386,12 +408,12 @@ binomial_251 :: (Integral a) => a -> a -> a
     Int -> Int -> Int
     #-}
 binomial_251 n k_
-    | 0 < k_ && k_ < n = 
+    | 0 < k_ && k_ < n =
         foldl'
             (\acc prime -> step acc (fromIntegral prime))
             1
             (takeWhile (fromIntegral n >=) primes)
-            
+    
     | 0 <= k_ && k_ <= n = 1
     | otherwise          = 0
     where
@@ -431,12 +453,12 @@ binomial_3 :: (Integral a) => a -> a -> a
     Int -> Int -> Int
     #-}
 binomial_3 n k_
-    | 0 < k_ && k_ < n = 
+    | 0 < k_ && k_ < n =
         foldl'
             (\acc prime -> step acc (fromIntegral prime))
             1
             (takeWhile (fromIntegral n >=) primes)
-            
+    
     | 0 <= k_ && k_ <= n = 1
     | otherwise          = 0
     where
