@@ -8,7 +8,7 @@
 --                                                    2012.02.02
 -- |
 -- Module      :  Math.Combinatorics.Exact.Primes
--- Copyright   :  Copyright (c) 2011 wren ng thornton
+-- Copyright   :  Copyright (c) 2011--2012 wren ng thornton
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
 -- Stability   :  experimental

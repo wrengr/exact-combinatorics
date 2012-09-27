@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall -fwarn-tabs #-}
 ----------------------------------------------------------------
---                                                    2012.02.02
+--                                                    2012.09.26
 -- |
 -- Module      :  Math.Combinatorics.Exact.Binomial
 -- Copyright   :  Copyright (c) 2011--2012 wren ng thornton
@@ -9,9 +9,9 @@
 -- Stability   :  experimental
 -- Portability :  Haskell98
 --
--- Binomial coefficients, aka the count of possible combinations.
--- For negative inputs, all functions return 0 (rather than throwing
--- an exception or using 'Maybe').
+-- Binomial coefficients (<http://oeis.org/A007318>), aka the count
+-- of possible combinations. For negative inputs, all functions
+-- return 0 (rather than throwing an exception or using 'Maybe').
 ----------------------------------------------------------------
 module Math.Combinatorics.Exact.Binomial (choose) where
 
