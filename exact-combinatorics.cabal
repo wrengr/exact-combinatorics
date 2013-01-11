@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
--- wren ng thornton <wren@community.haskell.org>    ~ 2012.09.26
+-- wren ng thornton <wren@community.haskell.org>    ~ 2013.01.10
 ----------------------------------------------------------------
 
 -- By and large Cabal >=1.2 is fine; but >= 1.6 gives tested-with:
@@ -9,12 +9,12 @@ Cabal-Version:  >= 1.6
 Build-Type:     Custom
 
 Name:           exact-combinatorics
-Version:        0.2.0.4
+Version:        0.2.0.5
 Stability:      experimental
 Homepage:       http://code.haskell.org/~wren/
 Author:         wren ng thornton
 Maintainer:     wren@community.haskell.org
-Copyright:      Copyright (c) 2011--2012 wren ng thornton
+Copyright:      Copyright (c) 2011--2013 wren ng thornton
 License:        BSD3
 License-File:   LICENSE
 
@@ -23,7 +23,7 @@ Synopsis:       Efficient exact computation of combinatoric functions.
 Description:    Efficient exact computation of combinatoric functions.
 
 Tested-With:
-    GHC == 6.12.1
+    GHC == 6.12.1, GHC == 7.6.1
 Extra-source-files:
     README, VERSION
 Source-Repository head
