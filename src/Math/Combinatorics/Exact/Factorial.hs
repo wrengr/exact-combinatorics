@@ -109,7 +109,7 @@ factorial n
         --
         -- fromIntegral s /= fromIntegral n - popCount (fromIntegral n) = error "factorial_splitRecursive: bug in the computation of n - popCount n"
         | otherwise = r `shiftL` s
-    
+
     -- | The product of odd @j@s between n/2^k and 2*n/2^k. @len@
     -- is the count of @j@ terms to multiply, where the @j@ state
     -- argument is the largest previously used term.
@@ -123,7 +123,7 @@ factorial n
             in (,) <!> (qL*qR) <!> j''
         where
         half = len `quot` 2
-        
+
         (<!>) = ($!) -- fix associativity
 
 {-
@@ -131,7 +131,7 @@ floorLog2 :: (Integral a, Bits a) => a -> Int
 floorLog2 n
     | n <= 0    = error "floorLog2: argument must be positive"
     | otherwise = highestBitPosition n - 1
-    
+
 highestBitPosition :: (Integral a, Bits a) => a -> Int
 {-# INLINE highestBitPosition #-}
 {-# SPECIALIZE highestBitPosition :: Int -> Int #-}
@@ -204,7 +204,7 @@ factorial_primeSwing n0
     go n
         | n < 2     = 1
         | otherwise = (go (n `div` 2) ^ 2) * swing n
-    
+
     swing n
         | n < 33    = smallOddSwing `unsafeAt` n
         | otherwise =
@@ -230,7 +230,7 @@ factorial_primeSwing n0
                 return
                     $ primorial (n `div` 2 + 1) n
                     * xmathProduct primeList 0 count
-    
+
     -- With hsc2hs we can use #def to define these as static C-style arrays, and then use base:Foreign.Marshall.Array to access them. Instead of using array:Data.Array.Unboxed; Or we could try the Addr# trick used in Warp
     smallOddSwing :: UArray Int Int32
     smallOddSwing = listArray (0,32)
@@ -238,7 +238,7 @@ factorial_primeSwing n0
         , 429, 6435, 6435, 109395, 12155, 230945, 46189, 969969
         , 88179, 2028117, 676039, 16900975, 1300075, 35102025
         , 5014575, 145422675, 9694845, 300540195, 300540195 ]
-    
+
     smallFactorials :: UArray Int Int64
     smallFactorials = listArray (0,20)
         [ 1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800
@@ -263,10 +263,10 @@ popCount x0 =
     where
     i2w :: Int -> Word
     i2w = fromIntegral
-    
+
     w2i :: Word -> Int
     w2i = fromIntegral
-    
+
     w1 = 0xaaaaaaaaaaaaaaaa    -- binary: 0101...
     -- m1 = 0x5555555555555555 -- binary: 1010...
     m2 = 0x3333333333333333    -- binary: 11001100...

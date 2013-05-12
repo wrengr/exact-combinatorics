@@ -88,7 +88,7 @@ choose :: (Integral a) => a -> a -> a
     #-}
 n `choose` k_
     | n `seq` k_`seq` False = undefined
-    | 0 < k_ && k_ < n = 
+    | 0 < k_ && k_ < n =
         k `seq` nk `seq` sqrtN `seq`
             foldl'
                 (\acc prime -> step acc (fromIntegral prime))
@@ -103,7 +103,7 @@ n `choose` k_
     -- TODO: since we know the second operands to quot/rem are
     -- positive, we should use quotInt/remInt directly to avoid the
     -- extra tests (the overflow errors are not optimized away).
-    
+
     k     = fromIntegral $! if k_ > n `quot` 2 then n - k_ else k_
     nk    = n - k
     sqrtN = floor (sqrt (fromIntegral n) :: Double) `asTypeOf` n
@@ -124,7 +124,7 @@ n `choose` k_
             | n' `rem` prime < (k' `rem` prime) + r
                         = go (n' `quot` prime) (k' `quot` prime) 1 $! p * prime
             | otherwise = go (n' `quot` prime) (k' `quot` prime) 0 p
-            
+
         {- -- BENCH: apparently this is an unreliable optimization.
         | otherwise = acc * (prime ^ go n k 0 0)
         where
