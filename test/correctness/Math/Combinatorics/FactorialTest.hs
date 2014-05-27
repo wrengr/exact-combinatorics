@@ -3,7 +3,7 @@
 --                                                    2012.01.27
 -- |
 -- Module      :  Math.Combinatorics.FactorialTest
--- Copyright   :  Copyright (c) 2011 wren ng thornton
+-- Copyright   :  Copyright (c) 2011 wren gayle romano
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
 -- Stability   :  experimental

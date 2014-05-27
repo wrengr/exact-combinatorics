@@ -1,14 +1,14 @@
 ----------------------------------------------------------------
--- wren ng thornton <wren@community.haskell.org>    ~ 2011.12.14
+-- wren gayle romano <wren@community.haskell.org>   ~ 2011.12.14
 ----------------------------------------------------------------
 
 Name:           combinatorics-bench
 Version:        0.1.0
 Stability:      experimental
 Homepage:       http://code.haskell.org/~wren/
-Author:         wren ng thornton
+Author:         wren gayle romano
 Maintainer:     wren@community.haskell.org
-Copyright:      Copyright (c) 2011 wren ng thornton
+Copyright:      Copyright (c) 2011 wren gayle romano
 License:        BSD3
 License-File:   ../../LICENSE
 

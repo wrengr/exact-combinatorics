@@ -3,7 +3,7 @@
 --                                                    2011.12.14
 -- |
 -- Module      :  Math.Combinatorics.BinomialBench
--- Copyright   :  Copyright (c) 2011 wren ng thornton
+-- Copyright   :  Copyright (c) 2011 wren gayle romano
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
 -- Stability   :  experimental

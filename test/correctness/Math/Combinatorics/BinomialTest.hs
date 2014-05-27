@@ -3,7 +3,7 @@
 --                                                    2011.12.14
 -- |
 -- Module      :  Math.Combinatorics.BinomialTest
--- Copyright   :  Copyright (c) 2011--2012 wren ng thornton
+-- Copyright   :  Copyright (c) 2011--2012 wren gayle romano
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
 -- Stability   :  experimental
