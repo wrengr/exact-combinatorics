@@ -3,7 +3,7 @@
 --                                                    2012.09.26
 -- |
 -- Module      :  Math.Combinatorics.Exact.Binomial
--- Copyright   :  Copyright (c) 2011--2012 wren gayle romano
+-- Copyright   :  Copyright (c) 2011--2015 wren gayle romano
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
 -- Stability   :  experimental
