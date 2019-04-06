@@ -1,5 +1,4 @@
 {-# OPTIONS_GHC -Wall -fwarn-tabs #-}
-{-# LANGUAGE CPP #-}
 ----------------------------------------------------------------
 --                                                    2012.02.02
 -- |
@@ -25,9 +24,6 @@
 module Math.Combinatorics.Exact.Factorial (factorial) where
 
 -- N.B., we need a Custom cabal build-type for this to work.
-#ifdef __HADDOCK__
-import Data.Int  (Int32, Int64)
-#endif
 import Data.Bits
 
 {-
