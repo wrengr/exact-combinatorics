@@ -8,7 +8,7 @@
 --                                                    2012.02.02
 -- |
 -- Module      :  Math.Combinatorics.Exact.Primes
--- Copyright   :  Copyright (c) 2011--2015 wren gayle romano
+-- Copyright   :  Copyright (c) 2011--2019 wren gayle romano
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
 -- Stability   :  experimental
@@ -39,7 +39,7 @@ primes :: [Int]
 primes = seive wheels primes primeSquares
     where
     primeSquares = [p*p | p <- primes]
-    
+
     wheels = Wheel 1 [1] : zipWith nextSize wheels primes
         where
         nextSize (Wheel s ns) p =
@@ -47,7 +47,7 @@ primes = seive wheels primes primeSquares
                             , n  <- ns
                             , n' <- [n+o]
                             , n' `mod` p > 0 ]
-    
+
     -- N.B., ps and qs must be lazy. Or else the circular program is _|_.
     seive (Wheel s ns : ws) ps qs =
         [ n' | o  <- s : [2*s,3*s..(head ps-1)*s]

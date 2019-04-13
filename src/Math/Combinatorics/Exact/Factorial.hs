@@ -1,13 +1,14 @@
 {-# OPTIONS_GHC -Wall -fwarn-tabs #-}
+{-# LANGUAGE BangPatterns #-}
 ----------------------------------------------------------------
---                                                    2012.02.02
+--                                                    2019.04.13
 -- |
 -- Module      :  Math.Combinatorics.Exact.Factorial
--- Copyright   :  Copyright (c) 2011--2015 wren gayle romano
+-- Copyright   :  Copyright (c) 2011--2019 wren gayle romano
 -- License     :  BSD
 -- Maintainer  :  wren@community.haskell.org
 -- Stability   :  experimental
--- Portability :  Haskell98 + CPP
+-- Portability :  Haskell98 + BangPatterns
 --
 -- The factorial numbers (<http://oeis.org/A000142>). For negative
 -- inputs, all functions return 0 (rather than throwing an exception
@@ -23,7 +24,6 @@
 ----------------------------------------------------------------
 module Math.Combinatorics.Exact.Factorial (factorial) where
 
--- N.B., we need a Custom cabal build-type for this to work.
 import Data.Bits
 
 {-
@@ -89,8 +89,7 @@ factorial n
     -- r   == (q1 ^ K) * (q2 ^ (K-1)) * ... * (qK ^ 1)
     -- s   == 2^{n - popCount n}
     -- go :: Int -> Int -> Int -> Int -> a -> a -> a -> a
-    go k lo s hi j p r
-        | k `seq` lo `seq` s `seq` hi `seq` j `seq` p `seq` r `seq` False = undefined
+    go !k !lo !s !hi !j !p !r
         | k >= 0 =                     -- TODO: why did old version use lo/=n ?
             let lo' = n `shiftR` k     -- TODO: use shiftRL#
                 hi' = (lo' - 1) .|. 1  -- if odd lo' then lo' else lo' - 1
@@ -103,7 +102,8 @@ factorial n
                     in go (k - 1) lo' (s + lo) hi' j' p' r'
                 else   go (k - 1) lo' (s + lo) hi' j  p  r
         --
-        -- fromIntegral s /= fromIntegral n - popCount (fromIntegral n) = error "factorial_splitRecursive: bug in the computation of n - popCount n"
+        -- fromIntegral s /= fromIntegral n - popCount (fromIntegral n) =
+        --     error "factorial_splitRecursive: bug in the computation of n - popCount n"
         | otherwise = r `shiftL` s
 
     -- | The product of odd @j@s between n/2^k and 2*n/2^k. @len@
@@ -118,8 +118,7 @@ factorial n
                 (qR, j'') = partialProduct half         j'
             in (,) <!> (qL*qR) <!> j''
         where
-        half = len `quot` 2
-
+        half  = len `quot` 2
         (<!>) = ($!) -- fix associativity
 
 {-
@@ -153,7 +152,7 @@ floorLog2_Int n
 -}
 
 highestBitPosition_Int :: Int -> Int
-highestBitPosition_Int w = 
+highestBitPosition_Int w =
     if w < 1 `shiftL` 15
     then if w < 1 `shiftL` 7
         then if w < 1 `shiftL` 3
@@ -227,7 +226,10 @@ factorial_primeSwing n0
                     $ primorial (n `div` 2 + 1) n
                     * xmathProduct primeList 0 count
 
-    -- With hsc2hs we can use #def to define these as static C-style arrays, and then use base:Foreign.Marshall.Array to access them. Instead of using array:Data.Array.Unboxed; Or we could try the Addr# trick used in Warp
+    -- With hsc2hs we can use #def to define these as static C-style
+    -- arrays, and then use base:Foreign.Marshall.Array to access them.
+    -- Instead of using array:Data.Array.Unboxed; Or we could try the
+    -- Addr# trick used in Warp
     smallOddSwing :: UArray Int Int32
     smallOddSwing = listArray (0,32)
         [ 1, 1, 1, 3, 3, 15, 5, 35, 35, 315, 63, 693, 231, 3003

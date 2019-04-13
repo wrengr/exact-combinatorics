@@ -10,10 +10,12 @@ Efficient exact computation of combinatoric functions.
 
 ## Install
 
-This is a simple package and should be easy to install. You should
-be able to use one of the following standard methods to install it.
+This is a simple package and should be easy to install via any of
+the standared methods:
 
     -- With cabal-install and without the source:
+    $> cabal new-install exact-combinatorics
+    -- or:
     $> cabal install exact-combinatorics
     
     -- With cabal-install and with the source already:
@@ -36,16 +38,25 @@ step is also optional.
 ## Portability
 
 An attempt has been made to keep this library as portable as possible.
-It is Haskell98 except for the use of CPP, in order to get the
-Haddock documentation to come out right.
+It is entirely Haskell98 with the exception of one use of BangPatterns.
+BangPatterns are supported in GHC as far back as [version
+6.6.1][ghc-bangpatterns], and are also supported by [JHC][jhc-bangpatterns]
+and [UHC][uhc-bangpatterns]. As of 2010, they were [not supported
+by Hugs][hugs-bangpatterns]; but alas Hugs is pretty much dead now.
+
+[ghc-bangpatterns]: 
+    https://downloads.haskell.org/~ghc/6.6.1/docs/html/users_guide/sec-bang-patterns.html
+[jhc-bangpatterns]:
+    http://repetae.net/computer/jhc/manual.html#code-options
+[uhc-bangpatterns]:
+    https://github.com/UU-ComputerScience/uhc-js/issues/1
+[hugs-bangpatterns]: 
+    https://mail.haskell.org/pipermail/haskell-cafe/2010-July/079946.html
 
 ## Links
 
-* [Website](http://cl.indiana.edu/~wren/)
+* [Website](https://wrengr.org/)
 * [Blog](http://winterkoninkje.dreamwidth.org/)
 * [Twitter](https://twitter.com/wrengr)
 * [Hackage](http://hackage.haskell.org/package/exact-combinatorics)
-* [Darcs](http://code.haskell.org/~wren/exact-combinatorics)
-* [GitHub (clone)](https://github.com/wrengr/exact-combinatorics)
-* [Haddock (Darcs version)
-    ](http://code.haskell.org/~wren/exact-combinatorics/dist/doc/html/exact-combinatorics)
+* [GitHub](https://github.com/wrengr/exact-combinatorics)
