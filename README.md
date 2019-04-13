@@ -3,7 +3,6 @@ exact-combinatorics
 [![Hackage version](https://img.shields.io/hackage/v/exact-combinatorics.svg?style=flat)](https://hackage.haskell.org/package/exact-combinatorics) 
 [![Hackage-Deps](https://img.shields.io/hackage-deps/v/exact-combinatorics.svg?style=flat)](http://packdeps.haskellers.com/specific?package=exact-combinatorics)
 [![TravisCI Build Status](https://img.shields.io/travis/wrengr/exact-combinatorics.svg?style=flat)](https://travis-ci.org/wrengr/exact-combinatorics) 
-[![CircleCI Build Status](https://circleci.com/gh/wrengr/exact-combinatorics.svg?style=shield&circle-token=b57517657c556be6fd8fca92b843f9e4cffaf8d1)](https://circleci.com/gh/wrengr/exact-combinatorics)
 
 Efficient exact computation of combinatoric functions.
 
