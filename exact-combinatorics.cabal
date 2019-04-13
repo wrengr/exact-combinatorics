@@ -1,10 +1,12 @@
 ----------------------------------------------------------------
--- wren gayle romano <wren@community.haskell.org>   ~ 2015.05.30
+-- wren gayle romano <wren@community.haskell.org>   ~ 2019.04.13
 ----------------------------------------------------------------
 
--- By and large Cabal >=1.2 is fine; but >= 1.6 gives tested-with:
--- and source-repository:.
-Cabal-Version:  >= 1.6
+-- By and large Cabal >=1.2 is fine; but
+-- * >=1.6 gives tested-with: and source-repository:
+-- * >=1.8 allows executables to build-depends: on the library
+-- * >=1.9.2 allows Test-Suite
+Cabal-Version:  >= 1.9.2
 Build-Type:     Simple
 
 Name:           exact-combinatorics
@@ -13,7 +15,7 @@ Stability:      experimental
 Homepage:       http://code.haskell.org/~wren/
 Author:         wren gayle romano
 Maintainer:     wren@community.haskell.org
-Copyright:      Copyright (c) 2011--2015 wren gayle romano
+Copyright:      Copyright (c) 2011--2019 wren gayle romano
 License:        BSD3
 License-File:   LICENSE
 
@@ -21,20 +23,23 @@ Category:       Statistics, Math
 Synopsis:       Efficient exact computation of combinatoric functions.
 Description:    Efficient exact computation of combinatoric functions.
 
-Tested-With:
-    GHC ==6.12.1, GHC ==7.6.1, GHC ==7.8.0
 Extra-source-files:
-    README, CHANGELOG
-Source-Repository head
-    Type:     darcs
-    Location: http://community.haskell.org/~wren/exact-combinatorics
+    CHANGELOG, README.md
 
-----------------------------------------------------------------
-Flag base4
-    Default:     True
-    Description: base-4.0 emits "Prelude deprecated" messages in
-                 order to get people to be explicit about which
-                 version of base they use.
+-- Cf., <https://travis-ci.org/wrengr/exact-combinatorics>
+Tested-With:
+    GHC ==7.4.1, GHC ==7.4.2,
+    GHC ==7.6.1, GHC ==7.6.2, GHC ==7.6.3,
+    GHC ==7.8.1, GHC ==7.8.2, GHC ==7.8.3, GHC ==7.8.4,
+    GHC ==7.10.1, GHC ==7.10.2, GHC ==7.10.3,
+    GHC ==8.0.1, GHC ==8.0.2,
+    GHC ==8.2.1, GHC ==8.2.2,
+    GHC ==8.4.1, GHC ==8.4.2, GHC ==8.4.3,
+    GHC ==8.6.1, GHC ==8.6.2
+
+Source-Repository head
+    Type:     git
+    Location: https://github.com/wrengr/exact-combinatorics.git
 
 ----------------------------------------------------------------
 Library
@@ -44,10 +49,10 @@ Library
                    , Math.Combinatorics.Exact.Binomial
     -- Data.IntList
     
-    if flag(base4)
-        Build-Depends: base >= 4 && < 5
-    else
-        Build-Depends: base < 4
+    -- The lower bound is more restrictive than necessary.
+    -- But then, we don't maintain any CI tests for older
+    -- versions, so these are the lowest bounds we've verified.
+    Build-Depends: base >= 4.5 && < 5
 
 ----------------------------------------------------------------
 ----------------------------------------------------------- fin.
