@@ -1,8 +1,8 @@
 exact-combinatorics
 ===================
 [![Hackage version](https://img.shields.io/hackage/v/exact-combinatorics.svg?style=flat)](https://hackage.haskell.org/package/exact-combinatorics) 
-[![Hackage-Deps](https://img.shields.io/hackage-deps/v/exact-combinatorics.svg?style=flat)](http://packdeps.haskellers.com/specific?package=exact-combinatorics)
-[![TravisCI Build Status](https://img.shields.io/travis/wrengr/exact-combinatorics.svg?style=flat)](https://travis-ci.org/wrengr/exact-combinatorics) 
+[![Build Status](https://github.com/wrengr/exact-combinatorics/workflows/ci/badge.svg)](https://github.com/wrengr/exact-combinatorics/actions?query=workflow%3Aci)
+[![Dependencies](https://img.shields.io/hackage-deps/v/exact-combinatorics.svg?style=flat)](http://packdeps.haskellers.com/specific?package=exact-combinatorics)
 
 Efficient exact computation of combinatoric functions.
 

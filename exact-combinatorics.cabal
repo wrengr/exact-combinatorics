@@ -1,21 +1,18 @@
 ----------------------------------------------------------------
--- wren gayle romano <wren@cpan.org>                ~ 2019.04.13
+-- wren gayle romano <wren@cpan.org>                ~ 2021.10.16
 ----------------------------------------------------------------
 
--- By and large Cabal >=1.2 is fine; but
--- * >=1.6 gives tested-with: and source-repository:
--- * >=1.8 allows executables to build-depends: on the library
--- * >=1.9.2 allows Test-Suite
-Cabal-Version:  >= 1.9.2
+-- Cabal >=1.10 is required by Hackage.
+Cabal-Version:  >= 1.10
 Build-Type:     Simple
 
 Name:           exact-combinatorics
-Version:        0.2.0.9
+Version:        0.2.0.10
 Stability:      experimental
 Homepage:       https://wrengr.org/
 Author:         wren gayle romano
 Maintainer:     wren@cpan.org
-Copyright:      Copyright (c) 2011--2019 wren gayle romano
+Copyright:      Copyright (c) 2011--2021 wren gayle romano
 License:        BSD3
 License-File:   LICENSE
 
@@ -26,16 +23,16 @@ Description:    Efficient exact computation of combinatoric functions.
 Extra-source-files:
     CHANGELOG, README.md
 
--- Cf., <https://travis-ci.org/wrengr/exact-combinatorics>
+-- This should work as far back as GHC 7.4.1, but we don't verify that by CI.
+-- <https://github.com/wrengr/exact-combinatorics/actions?query=workflow%3Aci>
 Tested-With:
-    GHC ==7.4.1, GHC ==7.4.2,
-    GHC ==7.6.1, GHC ==7.6.2, GHC ==7.6.3,
-    GHC ==7.8.1, GHC ==7.8.2, GHC ==7.8.3, GHC ==7.8.4,
-    GHC ==7.10.1, GHC ==7.10.2, GHC ==7.10.3,
-    GHC ==8.0.1, GHC ==8.0.2,
-    GHC ==8.2.1, GHC ==8.2.2,
-    GHC ==8.4.1, GHC ==8.4.2, GHC ==8.4.3,
-    GHC ==8.6.1, GHC ==8.6.2
+    GHC ==8.0.2,
+    GHC ==8.2.2,
+    GHC ==8.4.4,
+    GHC ==8.6.5,
+    GHC ==8.8.4,
+    GHC ==8.10.3,
+    GHC ==9.0.1
 
 Source-Repository head
     Type:     git
@@ -43,6 +40,7 @@ Source-Repository head
 
 ----------------------------------------------------------------
 Library
+    Default-Language: Haskell2010
     Hs-Source-Dirs:  src
     Exposed-Modules: Math.Combinatorics.Exact.Primes
                    , Math.Combinatorics.Exact.Factorial
