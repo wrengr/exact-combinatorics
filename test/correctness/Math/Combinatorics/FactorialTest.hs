@@ -1,11 +1,11 @@
 {-# OPTIONS_GHC -Wall -fwarn-tabs #-}
 ----------------------------------------------------------------
---                                                    2012.01.27
+--                                                    2021.10.17
 -- |
 -- Module      :  Math.Combinatorics.FactorialTest
--- Copyright   :  Copyright (c) 2011 wren gayle romano
+-- Copyright   :  Copyright (c) 2011--2021 wren gayle romano
 -- License     :  BSD
--- Maintainer  :  wren@community.haskell.org
+-- Maintainer  :  wren@cpan.org
 -- Stability   :  experimental
 -- Portability :  Haskell98
 --

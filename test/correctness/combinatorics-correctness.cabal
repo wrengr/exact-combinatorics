@@ -1,14 +1,19 @@
 ----------------------------------------------------------------
--- wren gayle romano <wren@community.haskell.org>   ~ 2012.01.27
+-- wren gayle romano <wren@cpan.org>                ~ 2021.10.17
 ----------------------------------------------------------------
+
+-- Cabal >=1.10 is required by Hackage.
+Cabal-Version:  >= 1.10
+Build-Type:     Simple
 
 Name:           combinatorics-correctness
 Version:        0.1.0
 Stability:      experimental
-Homepage:       http://code.haskell.org/~wren/
+Homepage:       https://wrengr.org/software/hackage.html
+Bug-Reports:    https://github.com/wrengr/exact-combinatorics/issues
 Author:         wren gayle romano
-Maintainer:     wren@community.haskell.org
-Copyright:      Copyright (c) 2011--2012 wren gayle romano
+Maintainer:     wren@cpan.org
+Copyright:      Copyright (c) 2011–2021 wren gayle romano
 License:        BSD3
 License-File:   ../../LICENSE
 
@@ -16,15 +21,11 @@ Category:       Statistics, Math
 Synopsis:       Common combinatoric functions.
 Description:    Common combinatoric functions.
 
--- By and large Cabal >=1.2 is fine; but >= 1.6 gives tested-with:
--- and source-repository:.
-Cabal-Version:  >= 1.6
-Build-Type:     Simple
 Tested-With:    GHC == 6.12.1
 
 Source-Repository head
-    Type:     darcs
-    Location: http://community.haskell.org/~wren/combinatorics
+    Type:     git
+    Location: https://github.com/wrengr/exact-combinatorics.git
 
 ----------------------------------------------------------------
 Flag base4
@@ -38,7 +39,7 @@ Executable test-factorial
     Main-Is:     Math/Combinatorics/FactorialTest.hs
     GHC-Options: -main-is Math.Combinatorics.FactorialTest.main
     GHC-Options: -fforce-recomp
-    
+
     Build-Depends: combinatorics >= 0.1.0
                  , QuickCheck    >= 2.1.0
                  , smallcheck    >= 0.4
@@ -53,7 +54,7 @@ Executable test-binomial
     Main-Is:     Math/Combinatorics/BinomialTest.hs
     GHC-Options: -main-is Math.Combinatorics.BinomialTest.main
     GHC-Options: -fforce-recomp
-    
+
     Build-Depends: combinatorics >= 0.1.0
                  , QuickCheck    >= 2.1.0
                  , smallcheck    >= 0.4
@@ -62,7 +63,7 @@ Executable test-binomial
         Build-Depends: base >= 4 && < 5
     else
         Build-Depends: base < 4
-    
+
 
 ----------------------------------------------------------------
 ----------------------------------------------------------- fin.

@@ -5,12 +5,12 @@
     -fno-warn-name-shadowing
     #-}
 ----------------------------------------------------------------
---                                                    2012.02.02
+--                                                    2021.10.17
 -- |
 -- Module      :  Math.Combinatorics.Exact.Primes
--- Copyright   :  Copyright (c) 2011--2019 wren gayle romano
+-- Copyright   :  Copyright (c) 2011--2021 wren gayle romano
 -- License     :  BSD
--- Maintainer  :  wren@community.haskell.org
+-- Maintainer  :  wren@cpan.org
 -- Stability   :  experimental
 -- Portability :  Haskell98
 --

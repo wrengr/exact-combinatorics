@@ -1,11 +1,11 @@
 {-# OPTIONS_GHC -Wall -fwarn-tabs #-}
 ----------------------------------------------------------------
---                                                    2011.12.14
+--                                                    2021.10.17
 -- |
 -- Module      :  Math.Combinatorics.BinomialBench
--- Copyright   :  Copyright (c) 2011 wren gayle romano
+-- Copyright   :  Copyright (c) 2011--2021 wren gayle romano
 -- License     :  BSD
--- Maintainer  :  wren@community.haskell.org
+-- Maintainer  :  wren@cpan.org
 -- Stability   :  experimental
 -- Portability :  Haskell98
 --
@@ -44,7 +44,7 @@ main =
                     ]
     where
     for = flip map
-    
+
     ns :: [Int]
     {-# INLINE ns #-}
     ns =
@@ -56,7 +56,7 @@ main =
         , 500000
         , 1000000
         ]
-    
+
     -- Rounded log_{1.5} spread: [1, 1.5, 2, 3, 5, 7, 10]
     {-# INLINE getKs #-}
     getKs n = map ($n)
@@ -210,7 +210,7 @@ binomial_25 n k_
             (\acc prime -> step acc (fromIntegral prime))
             1
             (takeWhile (fromIntegral n >=) primes)
-    
+
     | 0 <= k_ && k_ <= n = 1
     | otherwise          = 0
     where
@@ -248,7 +248,7 @@ binomial_250 n k_
             (\acc prime -> step acc (fromIntegral prime))
             1
             (takeWhile (fromIntegral n >=) primes)
-    
+
     | 0 <= k_ && k_ <= n = 1
     | otherwise          = 0
     where
@@ -324,7 +324,7 @@ binomial_2502 :: (Integral a) => a -> a -> a
     #-}
 binomial_2502 n k_
     | n `seq` k_`seq` False = undefined -- for strictness analysis
-    | 0 < k_ && k_ < n = 
+    | 0 < k_ && k_ < n =
         foldl'
             (\acc prime -> step acc (fromIntegral prime))
             1
@@ -388,7 +388,7 @@ binomial_25015 n k_
             then acc * prime
             else acc
         | otherwise = acc * go prime n k 0 1
-    
+
     go prime n' k' r p
         | prime `seq` n' `seq` k' `seq` r `seq` p `seq` False = undefined -- for strictness analysis
         | n' <= 0   = p
@@ -413,7 +413,7 @@ binomial_251 n k_
             (\acc prime -> step acc (fromIntegral prime))
             1
             (takeWhile (fromIntegral n >=) primes)
-    
+
     | 0 <= k_ && k_ <= n = 1
     | otherwise          = 0
     where
@@ -458,7 +458,7 @@ binomial_3 n k_
             (\acc prime -> step acc (fromIntegral prime))
             1
             (takeWhile (fromIntegral n >=) primes)
-    
+
     | 0 <= k_ && k_ <= n = 1
     | otherwise          = 0
     where

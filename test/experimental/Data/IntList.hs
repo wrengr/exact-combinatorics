@@ -1,12 +1,12 @@
 {-# OPTIONS_GHC -Wall -fwarn-tabs #-}
 -- {-# LANGUAGE CPP, MagicHash #-}
 ----------------------------------------------------------------
---                                                    2011.12.14
+--                                                    2021.10.17
 -- |
 -- Module      :  Data.IntList
--- Copyright   :  Copyright (c) 2011 wren gayle romano
+-- Copyright   :  Copyright (c) 2011--2021 wren gayle romano
 -- License     :  BSD
--- Maintainer  :  wren@community.haskell.org
+-- Maintainer  :  wren@cpan.org
 -- Stability   :  experimental
 -- Portability :  Haskell98 + FFI
 --
@@ -48,7 +48,7 @@ toIntList xs0 = unsafePerformIO $ do
             | otherwise      = do pokeElemOff ptr i x; go xs (i+1)
     --
     go xs0 0
-    
+
 {-
 -- Implementation modified from base-4.4.1.0:Foreign.Marshal.Array.pokeArray
 pokeArraySplitAt :: (Storable a) => Int -> Ptr a -> [a] -> IO [a]
