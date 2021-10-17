@@ -9,29 +9,10 @@ Efficient exact computation of combinatoric functions.
 
 ## Install
 
-This is a simple package and should be easy to install via any of
-the standared methods:
+This is a simple package and should be easy to install via the
+standared method:
 
-    -- With cabal-install and without the source:
-    $> cabal new-install exact-combinatorics
-    -- or:
     $> cabal install exact-combinatorics
-    
-    -- With cabal-install and with the source already:
-    $> cd exact-combinatorics
-    $> cabal install
-    
-    -- Without cabal-install, but with the source already:
-    $> cd exact-combinatorics
-    $> runhaskell Setup.hs configure --user
-    $> runhaskell Setup.hs build
-    $> runhaskell Setup.hs test
-    $> runhaskell Setup.hs haddock --hyperlink-source
-    $> runhaskell Setup.hs copy
-    $> runhaskell Setup.hs register
-
-The test step is optional and currently does nothing. The Haddock
-step is also optional.
 
 
 ## Portability
