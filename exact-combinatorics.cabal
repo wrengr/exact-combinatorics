@@ -1,5 +1,5 @@
 ----------------------------------------------------------------
--- wren gayle romano <wren@cpan.org>                ~ 2021.10.16
+-- wren gayle romano <wren@cpan.org>                ~ 2021.10.17
 ----------------------------------------------------------------
 
 -- Cabal >=1.10 is required by Hackage.
@@ -9,10 +9,11 @@ Build-Type:     Simple
 Name:           exact-combinatorics
 Version:        0.2.0.10
 Stability:      experimental
-Homepage:       https://wrengr.org/
+Homepage:       https://wrengr.org/software/hackage.html
+Bug-Reports:    https://github.com/wrengr/exact-combinatorics/issues
 Author:         wren gayle romano
 Maintainer:     wren@cpan.org
-Copyright:      Copyright (c) 2011--2021 wren gayle romano
+Copyright:      Copyright (c) 2011–2021 wren gayle romano
 License:        BSD3
 License-File:   LICENSE
 
@@ -46,7 +47,7 @@ Library
                    , Math.Combinatorics.Exact.Factorial
                    , Math.Combinatorics.Exact.Binomial
     -- Data.IntList
-    
+
     -- The lower bound is more restrictive than necessary.
     -- But then, we don't maintain any CI tests for older
     -- versions, so these are the lowest bounds we've verified.
