@@ -1,8 +1,9 @@
 exact-combinatorics
 ===================
+[![CI Status](https://github.com/wrengr/exact-combinatorics/actions/workflows/ci.yml/badge.svg)](https://github.com/wrengr/exact-combinatorics/actions?query=workflow%3Aci+-event%3Apull_request)
 [![Hackage version](https://img.shields.io/hackage/v/exact-combinatorics.svg?style=flat)](https://hackage.haskell.org/package/exact-combinatorics) 
-[![Build Status](https://github.com/wrengr/exact-combinatorics/workflows/ci/badge.svg)](https://github.com/wrengr/exact-combinatorics/actions?query=workflow%3Aci)
-[![Dependencies](https://img.shields.io/hackage-deps/v/exact-combinatorics.svg?style=flat)](http://packdeps.haskellers.com/specific?package=exact-combinatorics)
+[![Stackage LTS version](https://stackage.org/package/exact-combinatorics/badge/lts)](https://stackage.org/lts/package/exact-combinatorics)
+[![Stackage Nightly version](https://stackage.org/package/exact-combinatorics/badge/nightly)](https://stackage.org/nightly/package/exact-combinatorics)
 
 Efficient exact computation of combinatoric functions.
 
