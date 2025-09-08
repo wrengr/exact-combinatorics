@@ -111,15 +111,15 @@ factorial n
     -- argument is the largest previously used term.
     partialProduct :: (Integral a) => Int -> a -> (a,a)
     partialProduct len j
-        | half == 0 = (,) <!>  (j+2)        <!> (j+2)
-        | len  == 2 = (,) <!> ((j+2)*(j+4)) <!> (j+4)
+        | half == 0 = mkPair (j+2)         (j+2)
+        | len  == 2 = mkPair ((j+2)*(j+4)) (j+4)
         | otherwise =
-            let (qL, j' ) = partialProduct (len - half) j
-                (qR, j'') = partialProduct half         j'
-            in (,) <!> (qL*qR) <!> j''
+            let (qL , j' ) = partialProduct (len - half) j
+                (qR , j'') = partialProduct half         j'
+            in  mkPair (qL*qR) j''
         where
-        half  = len `quot` 2
-        (<!>) = ($!) -- fix associativity
+        mkPair = \x y -> x `seq` y `seq` (x,y)
+        half   = len `quot` 2
 
 {-
 floorLog2 :: (Integral a, Bits a) => a -> Int
