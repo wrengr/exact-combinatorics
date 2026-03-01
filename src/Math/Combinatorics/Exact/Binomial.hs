@@ -1,13 +1,14 @@
 {-# OPTIONS_GHC -Wall -fwarn-tabs #-}
+{-# LANGUAGE CPP #-}
 ----------------------------------------------------------------
---                                                    2021.10.17
+--                                                    2026-02-28
 -- |
 -- Module      :  Math.Combinatorics.Exact.Binomial
--- Copyright   :  Copyright (c) 2011--2021 wren gayle romano
+-- Copyright   :  Copyright (c) 2011--2026 wren gayle romano
 -- License     :  BSD
 -- Maintainer  :  wren@cpan.org
 -- Stability   :  experimental
--- Portability :  Haskell98
+-- Portability :  Haskell98 (+CPP)
 --
 -- Binomial coefficients (<http://oeis.org/A007318>), aka the count
 -- of possible combinations. For negative inputs, all functions
@@ -15,7 +16,9 @@
 ----------------------------------------------------------------
 module Math.Combinatorics.Exact.Binomial (choose) where
 
+#if __GLASGOW_HASKELL__ < 910
 import Data.List                       (foldl')
+#endif
 import Math.Combinatorics.Exact.Primes (primes)
 
 {-
