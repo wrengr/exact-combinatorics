@@ -85,6 +85,7 @@ implementation.
 --
 choose :: (Integral a) => a -> a -> a
     -- The result type could be any (Num b) if desired.
+-- TODO: GHC 9.14 deprecated multiple SPECIALIZE (and will remove in 9.18)
 {-# SPECIALIZE choose ::
     Integer -> Integer -> Integer,
     Int -> Int -> Int

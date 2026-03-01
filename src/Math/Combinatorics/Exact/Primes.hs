@@ -49,6 +49,8 @@ primes = seive wheels primes primeSquares
                             , n' `mod` p > 0 ]
 
     -- N.B., ps and qs must be lazy. Or else the circular program is _|_.
+    -- TODO: Rephrase this to avoid 'head' and 'tail' in order to
+    -- silence warnings on GHC 9.10.
     seive (Wheel s ns : ws) ps qs =
         [ n' | o  <- s : [2*s,3*s..(head ps-1)*s]
              , n  <- ns

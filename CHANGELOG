@@ -2,6 +2,13 @@
     - Added `Tested-With: GHC == 9.12, 9.14` (didn't actually need to
       nudge the upper bound on 'base', because it's already lenient)
     - Silenced warnings on GHC 9.10 about importing 'Data.List'
+    - TODO: still need to silence the following warnings:
+      - 'Math.Combinatorics.Exact.Binomial.choose': GHC 9.14 deprecated
+        multiple SPECIALIZE pragmas (and will remove them in 9.18)
+      - 'Math.Combinatorics.Exact.Primes.primes': GHC 9.10 warns
+        about using 'head' and 'tail'; so we need to rephrase the
+        @seive@ function to avoid them while retaining the necessary
+        laziness.
 0.2.0.14 (2024-08-29):
     - Added `Tested-With: GHC == 9.8, 9.10` (didn't actually need to
       nudge the upper bound on 'base', because it's already lenient)
