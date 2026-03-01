@@ -1,3 +1,5 @@
+0.2.1.0 (2026-09-28):
+    - Removed the use of 'head' and 'tail' in order to silence warnings.
 0.2.0.15 (2026-02-28):
     - Added `Tested-With: GHC == 9.12, 9.14` (didn't actually need to
       nudge the upper bound on 'base', because it's already lenient)

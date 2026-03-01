@@ -6,11 +6,11 @@ Cabal-Version:  2.2
 --    <https://github.com/haskell/cabal/issues/4899>
 
 ----------------------------------------------------------------
--- wren gayle romano <wren@cpan.org>                ~ 2026-02-26
+-- wren gayle romano <wren@cpan.org>                ~ 2026-09-28
 ----------------------------------------------------------------
 
 Name:           exact-combinatorics
-Version:        0.2.0.15
+Version:        0.2.1.0
 Build-Type:     Simple
 Stability:      experimental
 Homepage:       https://wrengr.org/software/hackage.html
@@ -58,7 +58,6 @@ Library
     Exposed-Modules: Math.Combinatorics.Exact.Primes
                    , Math.Combinatorics.Exact.Factorial
                    , Math.Combinatorics.Exact.Binomial
-    -- Data.IntList
 
     -- The lower bound is more restrictive than necessary.
     -- But then, we don't maintain any CI tests for older
