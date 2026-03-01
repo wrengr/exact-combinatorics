@@ -1,3 +1,7 @@
+0.2.0.15 (2026-02-28):
+    - Added `Tested-With: GHC == 9.12, 9.14` (didn't actually need to
+      nudge the upper bound on 'base', because it's already lenient)
+    - Silenced warnings on GHC 9.10 about importing 'Data.List'
 0.2.0.14 (2024-08-29):
     - Added `Tested-With: GHC == 9.8, 9.10` (didn't actually need to
       nudge the upper bound on 'base', because it's already lenient)

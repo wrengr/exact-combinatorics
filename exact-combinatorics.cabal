@@ -6,18 +6,18 @@ Cabal-Version:  2.2
 --    <https://github.com/haskell/cabal/issues/4899>
 
 ----------------------------------------------------------------
--- wren gayle romano <wren@cpan.org>                ~ 2025-02-11
+-- wren gayle romano <wren@cpan.org>                ~ 2026-02-26
 ----------------------------------------------------------------
 
 Name:           exact-combinatorics
-Version:        0.2.0.14
+Version:        0.2.0.15
 Build-Type:     Simple
 Stability:      experimental
 Homepage:       https://wrengr.org/software/hackage.html
 Bug-Reports:    https://github.com/wrengr/exact-combinatorics/issues
 Author:         wren gayle romano
 Maintainer:     wren@cpan.org
-Copyright:      2011–2025 wren romano
+Copyright:      2011–2026 wren romano
 -- Cabal-2.2 requires us to say "BSD-3-Clause" not "BSD3"
 License:        BSD-3-Clause
 License-File:   LICENSE
@@ -44,7 +44,8 @@ Tested-With:
     GHC ==9.6.5,
     GHC ==9.8.2,
     GHC ==9.10.1,
-    GHC ==9.12.1
+    GHC ==9.12.1,
+    GHC ==9.14.1
 
 Source-Repository head
     Type:     git
