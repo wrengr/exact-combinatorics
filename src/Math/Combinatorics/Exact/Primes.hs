@@ -1,8 +1,9 @@
 {-# OPTIONS_GHC
     -Wall
     -fwarn-tabs
-    -fno-warn-incomplete-patterns
     -fno-warn-name-shadowing
+    -fno-warn-incomplete-patterns
+    -fno-warn-incomplete-uni-patterns
     #-}
 ----------------------------------------------------------------
 --                                                    2026-09-28
@@ -23,10 +24,11 @@ module Math.Combinatorics.Exact.Primes (primes) where
 -- about 'Int').  Therefore it would be nice to implement (or find
 -- on hackage) a datatype for infinite lists to avoid the cost of
 -- unnecessary branches in case analysis, and to avoid the need for
--- `-fno-warn-incomplete-patterns`.  In particular, we need the
--- monad\/list-comprehension and @(++)@; which alas seems to indicate
--- that we need to use finite-lists intermediately to constructing
--- the infinite lists, unless we can be especially clever.
+-- `-fno-warn-incomplete-patterns` and `-fno-warn-incomplete-uni-patterns`.
+-- In particular, we need the monad\/list-comprehension and @(++)@;
+-- which alas seems to indicate that we need to use finite-lists
+-- intermediately to constructing the infinite lists, unless we can
+-- be especially clever.
 
 data Wheel = Wheel {-# UNPACK #-}!Int ![Int]
 
@@ -60,14 +62,21 @@ primes = seive wheels primes primeSquares
                             , let n' = n+o
                             , n' `mod` p > 0 ]
 
-    seive :: [Wheel] -> [Int] -> [Int] -> [Int]
-    -- NOTE: @pps@ and @qqs@ must be lazy; or else the circular program is _|_.
     -- NOTE: I've switched to using lazy-patterns in lieu of 'head'
     -- and 'tail' in order to silence warnings on GHC >= 9.10.
     -- However, beware the syntax problems of combining as-patterns
-    -- with lazy-patterns:
+    -- with lazy-patterns on GHC >= 9.0:
     -- <https://stackoverflow.com/q/67972231>
-    -- <https://gitlab.haskell.org/ghc/ghc/-/wikis/migration/9.0#whitespace-sensitive-and->
+    -- <https://gitlab.haskell.org/ghc/ghc/-/wikis/migration/9.0#whitespace-sensitive----and->
+    --
+    -- Also note that `-fno-warn-incomplete-patterns` is no longer
+    -- sufficient to silence the errors about incompete patterns here;
+    -- we additionally need `-fno-warn-incomplete-uni-patterns`.
+    -- Moreover, this isn't something we can resolve by simply expanding
+    -- out the impossible cases, for some strange reason.
+
+    seive :: [Wheel] -> [Int] -> [Int] -> [Int]
+    -- NOTE: @pps@ and @qqs@ must be lazy; or else the circular program is _|_.
     seive (Wheel s ns : ws) pps@(~(p:ps)) qqs@(~(_:qs)) =
         [ n' | o  <- s : [2*s,3*s..(p-1)*s]
              , n  <- ns
